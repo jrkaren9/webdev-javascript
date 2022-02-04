@@ -1,0 +1,19 @@
+{
+  "name": "webdev",
+  "version": "1.0.0",
+  "description": "Webpage for a football club",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "sass --watch scss/style.scss css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrkaren9/webdev.git"
+  },
+  "author": "Karen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrkaren9/webdev/issues"
+  },
+  "homepage": "https://github.com/jrkaren9/webdev#readme"
+}

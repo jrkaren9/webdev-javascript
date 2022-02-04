@@ -1,0 +1,12 @@
+.content-tickets {
+    display: grid;
+    grid-template-areas:
+        "banner"
+        "options"
+        "tickets";
+
+    .nextmatches-carousel {
+        grid-area: tickets;
+        max-height: 23rem;
+    }
+}    

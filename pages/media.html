@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" 
+        content="Contact page of the Washington Spirit, part of the National Women's Soccer League. 
+                Find the contact info for our media team, PR team and organization." />
+    <meta name="keywords" 
+        content="Washington Spirit, team, NWSL, National Women's Soccer League, football, soccer, USA, America, 
+                women's football, women's soccer, soccer league, football league,  
+                Tickets, News, Roster, Schedule, Latest News, Stats, Games, Info, Contact, Coaching Staff, Media Resources,
+                Shop, Official Match Jerseys, Jerseys, Shop Now,
+                Instagram, Facebook, Youtube, Tiktok, 
+                Media Contact, PR Team" />
+
+    <title>Media</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <link rel="icon" type="image/x-icon" href="../imgs/washington-spirit.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+<body class="d-flex flex-column">
+
+    <div class="topheader">
+
+        <div class="logo_team row-wrap d-none d-lg-block">
+            <img src="../imgs/washington_spirit_crest.png" alt="Team logo" width="180">
+        </div>
+
+        <header class="header container-fluid">
+            <div class="row align-items-center">
+
+                <div class="headder__teamname-container col-sm-6 col-lg-8 d-none d-sm-block">
+                    <h1 class="d-none d-xl-block header__teamname">National Women's Soccer League</h1>
+                    <h1 class="d-block d-xl-none header__teamname">NWSL</h1>
+                </div>
+
+                <div class="col-10 col-sm-3 col-lg-2">
+                    <div class="account d-flex justify-content-end">
+                        <div class="header__searchitem search__login d-flex justify-content-end">
+                            <a href="">Log in</a>
+                        </div>
+                        <div class="vertical-line">|</div>
+                        <div class="header__searchitem search__signin">
+                            <a href="">Sign in</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header__search col-2 col-sm-3 col-lg-2">
+                    <form class="d-flex justify-content-end">
+                        <input class="form-control me-2 d-none d-sm-block outline-white" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-success outline-white btn-red" type="submit" title="Search"><i
+                                class="fa fa-search"></i></button>
+                    </form>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- NEW NAVBAR -->
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid justify-content-start">
+                <a class="navbar-brand" href="#">Washington Spirit</a>
+
+                <div class="toggler-button order-first">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="../index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../pages/tickets.html">Tickets</a>
+                        </li>
+
+                        <li class="nav-item dropdown nav__menuitem">
+                            <a class="nav-link disabled dropdown-toggle" href="#" id="teamDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Team
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="TeamDropdown">
+                                <li><a class="dropdown-item" href="../pages/team.html">Stats</a></li>
+                                <li><a class="dropdown-item" href="../pages/team.html">Roster</a></li>
+                                <li><a class="dropdown-item" href="../pages/team.html">Staff</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="../pages/team.html">Facilities</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                News
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="newsDropdown">
+                                <li><a class="dropdown-item" href="../pages/news.html">Standings</a></li>
+                                <li><a class="dropdown-item" href="../pages/news.html">Previous Games</a></li>
+                                <li><a class="dropdown-item" href="../pages/news.html">Press Releases</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="../pages/news.html">Other News</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link disabled dropdown-toggle" href="#" id="storeDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Store
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="storeDropdown">
+                                <li><a class="dropdown-item" href="../pages/store.html">Jerseys</a></li>
+                                <li><a class="dropdown-item" href="../pages/store.html">Clothing</a></li>
+                                <li><a class="dropdown-item" href="../pages/store.html">Miscellaneous</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link disabled dropdown-toggle active" href="#" id="mediaDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Media
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="mediaDropdown">
+                                <li><a class="dropdown-item" href="../pages/media.html">Media Contact</a></li>
+                                <li><a class="dropdown-item" href="../pages/media.html">Media Resources</a></li>
+                                <li><a class="dropdown-item" href="../pages/media.html">Mailing List</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../pages/contact.html">Contact</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="content">
+        <p>Help</p>
+    </div>
+
+    <footer class="footer">
+        <div class="footer__lines">
+            <hr class="footer__lines-1">
+            <hr class="footer__lines-2">
+            <hr class="footer__lines-3">
+        </div>
+
+        <div class="container-fluid">
+            <div class="footer__column-list row align-items-center">
+
+                <div
+                    class="footercolumn__logo col-12 col-sm-4 col-md-2 d-flex justify-content-center align-items-center">
+                    <img src="../imgs/washington_spirit_crest.png" alt="Team logo">
+                </div>
+
+                <div class="col-12 col-sm-8 col-md-10 container-fluid">
+                    <div class="row">
+
+                        <div class="footer__column col-2">
+                            <h5 class="footer__text">BUY</h5>
+                            <ul class="footer__list">
+                                <li>
+                                    <a href="tickets.html">TICKETS</a>
+                                </li>
+                                <li>
+                                    <a href="store.html" class="disabled">JERSEYS</a>
+                                </li>
+                                <li>
+                                    <a href="store.html" class="disabled">CLOTHES</a>
+                                </li>
+                                <li>
+                                    <a href="store.html" class="disabled">OTHER ITEMS</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer__column col-2">
+                            <h5 class="footer__text">TEAM</h5>
+                            <ul class="footer__list">
+                                <li>
+                                    <a href="team.html" class="disabled">STATS</a>
+                                </li>
+                                <li>
+                                    <a href="team.html" class="disabled">ROSTER</a>
+                                </li>
+                                <li>
+                                    <a href="team.html" class="disabled">STAFF</a>
+                                </li>
+                                <li>
+                                    <a href="team.html" class="disabled">FACILITIES</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer__column col-2">
+                            <h5 class="footer__text">NEWS</h5>
+                            <ul class="footer__list">
+                                <li>
+                                    <a href="news.html">STANDINGS</a>
+                                </li>
+                                <li>
+                                    <a href="news.html">PREVIOUS GAMES</a>
+                                </li>
+                                <li>
+                                    <a href="news.html">PRESS RELEASES</a>
+                                </li>
+                                <li>
+                                    <a href="news.html">OTHER NEWS</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer__column col-2">
+                            <h5 class="footer__text">MEDIA</h5>
+                            <ul class="footer__list">
+                                <li>
+                                    <a href="media.html" class="disabled">MEDIA CONTACTS</a>
+                                </li>
+                                <li>
+                                    <a href="media.html" class="disabled">MEDIA RESOURCES</a>
+                                </li>
+                                <li>
+                                    <a href="media.html" class="disabled">MAILING LIST</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer__column col-2">
+                            <h5 class="footer__text">CONTACT</h5>
+                            <ul class="footer__list">
+                                <li>
+                                    <a href="contact.html">JOBS</a>
+                                </li>
+                                <li>
+                                    <p>email@teamemail.com</p>
+                                </li>
+                                <li>
+                                    <p>Team address, number <br>
+                                        City, State, Postal Code</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer__column col-2">
+                            <h5 class="footer__text">SOCIAL MEDIA</h5>
+                            <ul class="socialmedia row-wrap">
+                                <li>
+                                    <a href="https://www.instagram.com/"><img src="../imgs/instagram-icon.svg"
+                                            alt="Instagram logo" width="30"></a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/home"><img src="../imgs/twitter-icon.svg"
+                                            alt="Twitter logo" width="30"></a>
+                                </li>
+                                <li>
+                                    <a href="https://tiktok.com/"><img src="../imgs/tiktok-icon.svg" alt="TikTok logo"
+                                            width="30"></a>
+                                </li>
+                                <li>
+                                    <a href="https://youtube.com/"><img src="../imgs/youtube-icon.svg" alt="TikTok logo"
+                                            width="30"></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com/"><img src="../imgs/facebook-icon.svg"
+                                            alt="Facebook logo" width="30"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright footer__text">
+                    <p>Copyright © 2021 Washington Spirit LLC All Rights Reserved Privacy Policy</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+</html>

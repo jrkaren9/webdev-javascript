@@ -98,7 +98,7 @@ let login = () => {
     confirm("Welcome");
 }
 
-// signup();
+signup();
 // login();
 
 const products = {

@@ -1,0 +1,54 @@
+.news {
+    margin: 50px 10%;
+    max-width: 1500px;
+
+    .card { 
+        background-color: $content-background-color;
+        color: #FFF;
+
+        border: 0;
+        border-bottom: 1px dashed #FFF;
+        margin-bottom: 1rem;
+
+        .text-muted {
+            color: $almost-white!important;
+        }
+
+        .card-body {
+            padding-top: 0;
+        }
+
+        .image__credits {
+            position: relative;
+            bottom: 2rem;
+            padding-right: 1rem;
+            
+            background-color: $dark-red;
+            text-align: end;
+            line-height: 2rem;
+        }
+    }
+}
+
+.pagination {
+
+    .page-item {
+
+        .page-link {
+            background-color: $light-grey;
+            border-radius: 0;
+            border-color: #000;
+            color: $dark-blue;
+
+            &:hover {
+                background-color: $dark-red;
+                color: #FFf;
+                font-size: 900;
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 0.25rem rgba(231, 233, 238, 0.25);
+            }
+        }
+    }
+}

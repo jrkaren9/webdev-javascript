@@ -1,0 +1,43 @@
+/***********************************
+        Content
+***********************************/
+
+.content-contact {
+    display: grid;
+    grid-template-areas:
+        "banner"
+        "tickets"
+        "contact";
+
+    .contact {
+        grid-area: contact;
+        margin: 1rem 0 2rem 0;
+        max-width: 1500px;
+
+        color: #FFF;
+
+        .contact-2 {
+
+            padding: 0 2rem;
+
+            &__title:nth-of-type(2n) {
+                margin-top: 1rem;
+            }
+
+            .form-floating{
+                color: $dark-blue;
+            }
+
+            .form-text {
+                color: $almost-white;
+            }
+        }
+    }
+
+    .nextmatches-carousel {
+        grid-area: tickets;
+        max-height: 23rem;
+    }
+}    
+
+

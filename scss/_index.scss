@@ -1,0 +1,236 @@
+/***********************************
+           CAROUSEL Big New
+ ***********************************/
+ 
+#bignew-carousel{
+    height: 40rem;
+    overflow: hidden;
+
+    .carousel-item {
+        height: 40rem;
+        width: 100vw;
+        position: relative;
+
+        img {
+            object-fit: cover;
+            height: 40rem;
+
+            @media only screen and (min-width: $screen-lg) { 
+               object-position: 0 40%;  
+            }   
+
+        }
+
+        &__caption {
+            min-height: 40%;
+            width: 100vw;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            padding-bottom: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #FFFFFF;
+            text-align: center;
+
+            a {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+
+            .bignew__title {
+                margin-top: 1rem;
+                font-size: 2rem;
+            }
+
+            .bignew__text {
+                font-size: 1rem;
+                margin: 0 auto 0.2rem auto;
+                width: 65%;
+            }
+
+            .bignew__small-text {
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+}
+
+/***********************************
+            Matches
+ ***********************************/
+
+// Esto fue posible gracias a:   
+// https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6
+
+.nextmatches-carousel {
+    grid-area: matches;
+    width: auto;
+    height: auto;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5rem;
+
+    // for iOS
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+        
+        width: 20px;
+
+        &-track {
+            box-shadow: inset 0 0 5px $light-grey; 
+            border-radius: 10px;
+        }
+
+        &-thumb {
+            background: $light-grey; 
+            border-radius: 10px;
+
+            /* Handle on hover */
+            &:hover {
+                box-shadow: inset 0 0 2px $almost-white; 
+            }
+        }
+    } 
+
+    .matches__match {
+        flex: 0 0 auto;
+
+        color: #FFFFFF;
+        background-color: $dark-blue;
+        vertical-align: top;
+        width: 18rem;
+        margin: 0 0.5rem;
+        padding: 0;
+        
+        display: flex;
+        flex-flow: column nowrap;
+        
+        .match__info {
+            text-align: center;
+            font-size: 0.8rem;
+            border-bottom: 0.5px solid $light-grey;
+            border-left: 0.5rem solid $dark-red;
+        }
+
+        .match__teams {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            margin: 1rem 0 0;
+
+            .vs {
+                margin: 0.5rem 0.5rem 30%;
+                font-size: 1.5rem;
+                font-weight: 800;
+            }
+
+            .team {
+                &__name {
+                    padding-top: 0.5rem;
+                    max-width: 6rem;
+                    height: 3rem;
+                    font-size: 0.8rem;
+
+                    overflow: hidden;
+                    text-align: center;
+                    text-overflow: ellipsis;
+                }
+
+                &__logo {
+                    height: 4rem;
+                    width: 4rem;
+                }
+            }
+        }
+
+        .match__tickets {
+            height: 5rem;
+            position: relative;
+            margin-top: 1rem;
+            border-top: 1PX dashed $light-grey;
+
+            .ticket {
+                height: fit-content;
+                margin: 0.5rem 0.5rem;
+                width: 90%;
+                border-radius: 0;
+            }
+
+            &:before, &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                height: 2rem;
+                width: 2rem;
+                background-color: $content-background-color;
+                border-radius: 50%;
+                top: -1rem;
+            }
+
+            &:before {
+                left: -1rem;
+            }
+
+            &:after {
+                right: -1rem;
+            }
+        }
+    }
+
+    .nextmatches-control {
+        width: 5%;
+    }
+}
+
+
+/***********************************
+            Posts
+ ***********************************/
+
+.posts {
+    grid-area: posts;
+    text-align: left;
+    column-gap: 40px;
+    margin: 2rem 20px 0 40px;
+    width: auto;
+
+    &__post {
+        margin-bottom: 3rem;
+        color: $almost-white;
+        
+        h2 {
+            line-height: 2;
+            font-size: 1.2rem;
+            font-style: bold;
+            text-transform: capitalize;
+        }
+
+        h3 {
+            line-height: 1.5;
+            font-size: 1rem;
+            text-transform: initial;
+        }
+        
+        p {
+            text-indent: 1rem;
+        }
+        
+        .post__image {
+            display: flex;
+            justify-content: left;
+            margin: 5px;
+        }
+
+        .post__image img {
+            object-position: left center;
+            object-fit: cover;
+            width: 100%;
+            height: 20rem;
+        }
+    }
+}

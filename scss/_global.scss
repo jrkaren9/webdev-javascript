@@ -1,0 +1,92 @@
+* {
+    /* this even hides the bullet from lists!*/
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+}
+body {
+    min-height: 100vh;
+}
+
+p {
+    margin: 0;
+}
+
+/***********************************
+            Content
+ ***********************************/
+
+.content{
+    background-color: $content-background-color;
+
+    flex-grow: 1;
+
+}
+
+
+/***********************************
+            Flex
+ ***********************************/
+
+.row-wrap {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+}
+
+.content {
+    height: 100%;
+
+    .image__contact-us {
+
+        // with the help of https://www.w3schools.com/howto/howto_css_image_text.asp
+        grid-area: banner;
+        position: relative;
+        text-align: center;
+        width: 100%;
+        height: fit-content;
+
+        font-size: 1rem;
+        font-weight: 900;
+
+        img {
+            max-height: 50px; 
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* Centered text */
+        .image__text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        @media only screen and (min-width: $screen-sm) { 
+            font-size: 1.5rem;
+
+            img {
+                max-height: 75px; 
+            }
+        }
+
+        @media only screen and (min-width: $screen-md) { 
+            font-size: 2.5rem;
+        }  
+    }
+}

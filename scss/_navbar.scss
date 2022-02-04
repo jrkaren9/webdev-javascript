@@ -1,0 +1,175 @@
+/***********************************
+            TOP-HEADER
+***********************************/
+
+.topheader {
+    background-color: $content-background-color;
+    grid-area: "header";        
+    
+    /***********************************
+                LOGO
+     ***********************************/
+    
+    .logo_team{
+        z-index: 1;
+        position: absolute;
+        justify-content: center;
+        margin-top: 5px;
+        width: $space-for-logo;
+    }
+
+    /***********************************
+                HEADER
+    ***********************************/
+
+    .header {
+        margin: 0;
+        padding: 5px 0;
+    }
+
+    .header__searchitem a {
+        text-decoration: none;
+        color: $almost-white;
+    }
+
+    .headder__teamname-container {
+        padding: 0px;
+
+        .header__teamname {
+            font-size: 2rem;
+            font-weight: 500;
+            font-stretch: ultra-condensed;
+            color: #FFFFFF;
+            margin: 0;
+            margin-left: $space-without-logo;
+            width: auto;
+    
+            @media only screen and (min-width: $screen-lg) {
+                margin-left: $space-for-logo;
+            } 
+        }
+    }
+
+    .account {
+        margin-right: 5px;
+
+        .header__searchitem {
+            padding: 0 4px;
+        }
+        
+        .vertical-line {
+            max-width: 5px;
+            padding: 0;
+            color: $almost-white;
+        }        
+    }
+    
+    .header__search {
+        max-width: -moz-fit-content;
+        max-width: fit-content;
+
+        & .btn {
+            margin-right: 13px;
+        }
+    
+        .btn-red {
+            &:active, &:checked, &:hover {
+                background-color: $light-red;
+                border-color: $dark-red;
+            }
+        }
+        
+        .outline-white:focus, .outline-white:active, .outline-white:focus:active {
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.15);
+            transition: box-shadow 0.15S ease-in-out;
+        }
+        
+        .outline-white {
+            color: #FFFFFF;
+            border-color: #FFFFFF;
+            border-radius: 0;
+        }
+    }
+    
+    /***********************************
+                    NAVBAR
+     ***********************************/
+        
+    .navbar {
+        padding: 0;
+        background-color: $dark-blue;
+
+        & .navbar-brand {
+            margin-left: $space-without-logo;
+    
+            @media only screen and (min-width: $screen-lg) {
+                margin-left: $space-for-logo;
+            }
+        }
+    }
+    
+    .nav-item {
+        padding: 0 4px;
+    }
+    
+    .nav-link {
+        margin-left: $space-without-logo;
+
+        @media only screen and (min-width: $screen-lg) {   
+                margin-left: 0;
+            }    
+    }
+    
+    .nav-item .dropdown-item {
+        border: 0;
+    }
+    
+    .dropdown-menu a {
+        color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .dropdown-menu {
+        background-color: $dark-blue;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .dropdown-divider {
+        color: #FFFFFF;
+    }
+    
+    /* Extra functionality for navbar */
+    
+    .nav-item:hover {
+        font-weight: 500;
+    }
+    
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #FFFFFF;
+    }
+    
+    .dropdown-menu {
+        border: 0;
+        padding: 0;
+    }
+    
+    .dropdown-item:hover, .dropdown-item:focus {
+        background-color: $content-background-color;
+        color: #FFFFFF;
+        transition: ease-in;
+        transition-duration: 0.3s;
+    }
+    
+    .dropdown-divider {
+        margin: 0;
+    }
+    
+    .navbar .toggler-button{
+        margin-left: $space-without-logo;
+
+        @media only screen and (min-width: $screen-lg) {      
+                margin-left: 0;
+        }
+    }
+
+}

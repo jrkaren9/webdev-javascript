@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<svg enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Layer_4">
+    <path d="   M319,448H124c-33,0-60-27-60-60V124c0-33,27-60,60-60h264c33,0,60,27,60,60v264c0,33-27,60-60,60h-25" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="15" />
+    <path d="   M223.49,298c9.08,7.13,20.52,11.39,32.94,11.39c29.44,0,53.38-23.94,53.38-53.39c0-29.45-23.95-53.39-53.38-53.39   c-29.44,0-53.4,23.95-53.4,53.39c0,7.07,1.38,13.82,3.89,20" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="16" />
+    <path d="   M212.72,147.6 M213,147.6h86.28c35.9,0,65.12,29.22,65.12,65.12v86.56c0,35.9-29.22,65.12-65.12,65.12h-86.56   c-35.91,0-65.13-29.22-65.13-65.12v-86.56c0-25.6,14.86-47.8,36.4-58.43" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="16" />
+    <path d="M312.94,182.22c-7.03,0-12.72,5.69-12.72,12.72c0,7.02,5.69,12.69,12.72,12.69c7.01,0,12.7-5.68,12.7-12.69   C325.63,187.91,319.95,182.22,312.94,182.22z" fill="#FFFFFF" />
+  </g>
+  <g id="Layer_1" />
+</svg>
