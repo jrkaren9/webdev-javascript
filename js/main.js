@@ -11,18 +11,22 @@ if(Debug) {
     UserDataBase.push(new User("Fer", "", "Perez", "fer@mail.com", "pass5678"));
 }
 
-function User(firstname, middlename, lastname, email, password) {
-    this.firstname = firstname;
-    this.middlename = middlename;
-    this.lastname = lastname;
-    this.email = email;
-    this.password = password;
+class User {
+    constructor(firstname, middlename, lastname, email, password) {
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
 }
 
-function ProductInCart(description, amount, total) {
-    this.description = description;
-    this.amount = amount;
-    this.total = total
+class ProductInCart {
+    constructor(description, amount, total) {
+        this.description = description;
+        this.amount = amount;
+        this.total = total
+    }
 }
 
 let signup = () => {
