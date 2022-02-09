@@ -325,6 +325,25 @@ ul {
 /***********************************
         Content
 ***********************************/
+.content-signup {
+  background-color: #FFF;
+  display: grid;
+  grid-template-areas: "banner" "input" "input";
+}
+.content-signup .contact {
+  grid-area: input;
+  margin: 1rem 0 2rem 0;
+  max-width: 1500px;
+}
+.content-signup .contact .submit-button {
+  display: flex;
+  justify-self: center;
+  align-self: center;
+}
+
+/***********************************
+        Content
+***********************************/
 .content-contact {
   display: grid;
   grid-template-areas: "banner" "tickets" "contact";

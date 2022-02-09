@@ -1,22 +1,17 @@
-let Debug = true;
+let Debug = false;
 let TestSignUp = false;
 let UserDataBase = [];
 let UserCart = [];
 
 let isBlank = (str) => (!str || /^\s*$/.test(str));
 
-// populate database for testing
-if(Debug) {
-    UserDataBase.push(new User("Amy", "", "Perez", "amy@mail.com", "pass1234"));
-    UserDataBase.push(new User("Fer", "", "Perez", "fer@mail.com", "pass5678"));
-}
-
 class User {
-    constructor(firstname, middlename, lastname, email, password) {
+    constructor(firstname, middlename, lastname, email, username, password) {
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
         this.email = email;
+        this.username = username;
         this.password = password;
     }
 }
@@ -29,29 +24,52 @@ class ProductInCart {
     }
 }
 
-let signup = () => {
-    let firstname, middlename, lastname, email, password;
+// populate database for testing
+if(Debug) {
+    UserDataBase.push(new User("Amy", "", "Perez", "amy@mail.com", "pass1234"));
+    UserDataBase.push(new User("Fer", "", "Perez", "fer@mail.com", "pass5678"));
+}
 
-    do {
-        firstname = prompt("Please enter your first name:");
-    } while(isBlank(firstname));
+let button = document.getElementsByClassName("submit-button");
+//console.log(button);
 
-    middlename = prompt("Please enter your middle name:");
+if(button.length === 1) {
+    button[0].addEventListener("click", (event) => signup(event)) 
+}
 
-    do {
-        lastname = prompt("Please enter your last name:");
-    } while(isBlank(lastname));
+// let username = document.getElementById("usernameInput").value;
+// console.log(username);
 
-    do {
-        email = prompt("Please enter your email:");
-    } while(isBlank(email));
+let signup = (event) => {
 
-    do {
-        password = prompt("Please enter your password:");
-    } while(isBlank(password));
+    event.preventDefault(); 
+
+    let accountInfo = document.getElementsByClassName("input-info")[0].getElementsByClassName("required");
+    //console.log(accountInfo[0].getElementsByClassName("form-control"));
+
+    let firstname, middlename, lastname, email, phone, username, password;
+
+    for (let input = 0; input < accountInfo.length; input++) {
+        const data = accountInfo[input];
+        
+        let value = data.value;                             //console.log(data.value);
+        let help = data.getAttribute("aria-describedby");   // console.log(data.getAttribute("aria-describedby"));
+
+        if(isBlank(value))
+            document.getElementById(help).innerText = "This field is required";
+        else 
+            document.getElementById(help).innerText = "";
+    }
+
+    firstname = document.getElementById("firstNameInput").value;
+    lastname = document.getElementById("lastNameInput").value;
+    email = document.getElementById("emailInput").value;
+    phone = document.getElementById("phoneInput").value;
+    username = document.getElementById("usernameInput").value;
+    password = document.getElementById("passwordInput").value;
 
     // create user
-    const UserCreated = new User(firstname, middlename, lastname, email, password);
+    const UserCreated = new User(firstname, middlename, lastname, email, username, password);
     if(Debug)
         console.log(UserCreated);
 
@@ -102,7 +120,7 @@ let login = () => {
     confirm("Welcome");
 }
 
-signup();
+// signup();
 // login();
 
 const products = {
@@ -198,4 +216,4 @@ let additemsToCart = () => {
     while(!exit);
 }
 
-additemsToCart();
+//additemsToCart();
