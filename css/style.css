@@ -325,20 +325,21 @@ ul {
 /***********************************
         Content
 ***********************************/
-.content-signup {
+.content-signin {
   background-color: #FFF;
   display: grid;
   grid-template-areas: "banner" "input" "input";
 }
-.content-signup .contact {
+.content-signin .contact {
   grid-area: input;
   margin: 1rem 0 2rem 0;
   max-width: 1500px;
 }
-.content-signup .contact .submit-button {
-  display: flex;
-  justify-self: center;
-  align-self: center;
+.content-signin .contact .required-shadow {
+  border-color: #c20031;
+}
+.content-signin .contact .required-shadow:focus {
+  box-shadow: 0 0 0 0.25rem rgba(194, 0, 49, 0.4);
 }
 
 /***********************************
@@ -439,7 +440,7 @@ ul {
   margin-right: 13px;
 }
 .topheader .header__search .btn-red:active, .topheader .header__search .btn-red:checked, .topheader .header__search .btn-red:hover {
-  background-color: #C20031;
+  background-color: #c20031;
   border-color: #6f0f27;
 }
 .topheader .header__search .outline-white:focus, .topheader .header__search .outline-white:active, .topheader .header__search .outline-white:focus:active {
@@ -534,7 +535,7 @@ ul {
   border: 0;
   height: 4px;
   width: 90%;
-  background-color: #C20031;
+  background-color: #c20031;
   opacity: 1;
   margin: 4px auto;
 }
@@ -542,7 +543,7 @@ ul {
   border: 0;
   height: 4px;
   width: 80%;
-  background-color: #C20031;
+  background-color: #c20031;
   opacity: 1;
   margin: 4px auto;
 }
@@ -550,7 +551,7 @@ ul {
   border: 0;
   height: 4px;
   width: 70%;
-  background-color: #C20031;
+  background-color: #c20031;
   opacity: 1;
   margin: 4px auto;
 }
@@ -558,7 +559,7 @@ ul {
   border: 0;
   height: 4px;
   width: 60%;
-  background-color: #C20031;
+  background-color: #c20031;
   opacity: 1;
   margin: 4px auto;
 }

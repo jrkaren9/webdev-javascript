@@ -51,14 +51,21 @@ let signup = (event) => {
 
     for (let input = 0; input < accountInfo.length; input++) {
         const data = accountInfo[input];
-        
+        //console.log(data);
+
         let value = data.value;                             //console.log(data.value);
         let help = data.getAttribute("aria-describedby");   // console.log(data.getAttribute("aria-describedby"));
 
-        if(isBlank(value))
-            document.getElementById(help).innerText = "This field is required";
-        else 
-            document.getElementById(help).innerText = "";
+        if(isBlank(value)) {
+            let errorMessage = document.getElementById(help);
+            errorMessage.innerText = "This field is required";
+            data.classList.add("required-shadow");
+        }
+        else {
+            let errorMessage = document.getElementById(help);
+            errorMessage.innerText = "";
+            data.classList.remove("required-shadow");
+        }
     }
 
     firstname = document.getElementById("firstNameInput").value;

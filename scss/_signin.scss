@@ -2,7 +2,7 @@
         Content
 ***********************************/
 
-.content-signup {
+.content-signin {
     background-color: #FFF;
     display: grid;
     grid-template-areas:
@@ -15,10 +15,12 @@
         margin: 1rem 0 2rem 0;
         max-width: 1500px;
 
-        .submit-button {
-            display: flex;
-            justify-self: center;
-            align-self: center;
+        .required-shadow {
+            border-color: $light-red; 
+            
+            &:focus {
+                box-shadow: 0 0 0 0.25rem $light-red-shadow; 
+            }
         }
     }
 }    
