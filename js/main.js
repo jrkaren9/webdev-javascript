@@ -1,44 +1,108 @@
 let Debug = false;
-let TestSignUp = false;
 let UserDataBase = [];
 let UserCart = [];
 
 let isBlank = (str) => (!str || /^\s*$/.test(str));
 
 class User {
-    constructor(firstname, middlename, lastname, email, username, password) {
+    constructor(firstname, lastname, email, phone, username, password) {
         this.firstname = firstname;
-        this.middlename = middlename;
         this.lastname = lastname;
         this.email = email;
+        this.phone = phone;
         this.username = username;
         this.password = password;
     }
 }
 
-class ProductInCart {
-    constructor(description, amount, total) {
-        this.description = description;
-        this.amount = amount;
-        this.total = total
-    }
-}
-
 // populate database for testing
 if(Debug) {
-    UserDataBase.push(new User("Amy", "", "Perez", "amy@mail.com", "pass1234"));
-    UserDataBase.push(new User("Fer", "", "Perez", "fer@mail.com", "pass5678"));
+    UserDataBase.push(new User("Amy", "Perez", "amy@mail.com", "", "amy.perez", "pass1234"));
+    UserDataBase.push(new User("Fer", "Perez", "fer@mail.com", "", "fer.p", "pass5678"));
 }
 
-let button = document.getElementsByClassName("submit-button");
 //console.log(button);
-
+let button = document.getElementsByClassName("submit-button");
 if(button.length === 1) {
     button[0].addEventListener("click", (event) => signup(event)) 
 }
 
 // let username = document.getElementById("usernameInput").value;
 // console.log(username);
+
+let initializeDatabase = () => {
+    //console.log(JSON.parse(localStorage.getItem("UserDatabase")) || null);
+    UserDataBase = (JSON.parse(localStorage.getItem("UserDatabase")) || []);
+}
+
+let checkExistance = (event, input) => {
+    let element = event.target;
+    checkExistanceBase(element, input);
+};
+
+let checkExistanceBase = (element, input) => {
+    let help = element.getAttribute("aria-describedby");
+    let value = element.value;
+    let helpMessage = document.getElementById(help);
+    let error = 0;
+
+    if(isBlank(value)) {
+        error = changeRequiredStatus(element, helpMessage, "empty");
+    } 
+    else {
+        switch(input) {
+            case "Username":
+                error = findUser(value) ?
+                    changeRequiredStatus(element, helpMessage, "exists") :
+                    changeRequiredStatus(element, helpMessage, "valid");
+                break;
+            case "Email":
+                error = findEmail(value) ?
+                    changeRequiredStatus(element, helpMessage, "exists") :
+                    changeRequiredStatus(element, helpMessage, "valid");
+                break;
+            case "Password":
+                error =!validatePassword(value) ?
+                    changeRequiredStatus(element, helpMessage, "invalid-pass") :
+                    changeRequiredStatus(element, helpMessage, "valid");
+                break;
+            default:
+                error = changeRequiredStatus(element, helpMessage, "valid");
+                break;
+        }
+    }
+    return error;
+}
+
+
+let changeRequiredStatus = (element, helpMessage, status) => {
+    switch (status) {
+        case "empty": 
+            helpMessage.innerText = "This field is required";
+            element.classList.add("required-shadow");
+            return 1;
+        case "exists": 
+            helpMessage.innerText = "This " + element.getAttribute("placeholder") + " already exists"; 
+            element.classList.add("required-shadow");
+            return 1;
+        case "invalid-pass":
+            helpMessage.innerText = "The password should contain at least: one uppercase letter, one lowecase letter, one figit, one special symbol, and have more than 4 characters"; 
+            element.classList.add("required-shadow");
+            return 1;
+        case "valid":
+            helpMessage.innerText = "";
+            element.classList.remove("required-shadow");
+            return 0;
+    }
+}
+
+document.getElementById("firstNameInput").onblur = (event) => checkExistance(event);
+document.getElementById("lastNameInput").onblur = (event) => checkExistance(event);
+document.getElementById("passwordInput").onblur = (event) => checkExistance(event, "Password");
+document.getElementById("usernameInput").onblur = (event) => checkExistance(event, "Username");
+document.getElementById("emailInput").onblur = (event) => checkExistance(event, "Email");
+
+initializeDatabase();
 
 let signup = (event) => {
 
@@ -47,27 +111,14 @@ let signup = (event) => {
     let accountInfo = document.getElementsByClassName("input-info")[0].getElementsByClassName("required");
     //console.log(accountInfo[0].getElementsByClassName("form-control"));
 
-    let firstname, middlename, lastname, email, phone, username, password;
+    let firstname, lastname, email, phone, username, password, missingRequired = 0;
 
     for (let input = 0; input < accountInfo.length; input++) {
-        const data = accountInfo[input];
-        //console.log(data);
-
-        let value = data.value;                             //console.log(data.value);
-        let help = data.getAttribute("aria-describedby");   // console.log(data.getAttribute("aria-describedby"));
-
-        if(isBlank(value)) {
-            let errorMessage = document.getElementById(help);
-            errorMessage.innerText = "This field is required";
-            data.classList.add("required-shadow");
-        }
-        else {
-            let errorMessage = document.getElementById(help);
-            errorMessage.innerText = "";
-            data.classList.remove("required-shadow");
-        }
+        const element = accountInfo[input];
+        missingRequired += checkExistanceBase(element, element.getAttribute("placeholder"));
     }
 
+    console.log(missingRequired);
     firstname = document.getElementById("firstNameInput").value;
     lastname = document.getElementById("lastNameInput").value;
     email = document.getElementById("emailInput").value;
@@ -75,37 +126,37 @@ let signup = (event) => {
     username = document.getElementById("usernameInput").value;
     password = document.getElementById("passwordInput").value;
 
-    // create user
-    const UserCreated = new User(firstname, middlename, lastname, email, username, password);
-    if(Debug)
-        console.log(UserCreated);
+    //console.log(missingRequired); 
 
-    // add user to the database
-    UserDataBase.push(UserCreated);
-    if(Debug)
-        console.log(UserDataBase);
+    // create user
+    if(missingRequired <= 0) {
+        const UserCreated = new User(firstname, lastname, email, phone, username, password);
+        if (UserCreated) {
+            UserDataBase.push(UserCreated);
+            localStorage.setItem("UserDatabase", JSON.stringify(UserDataBase));
+            console.log(JSON.parse(localStorage.getItem("UserDatabase")) || null);
+        }
+    }
 }
 
 let findEmail = 
-    (email) => UserDataBase.find(user => user.email === email)?.email ? true : false;
+    (email) => UserDataBase.find(user => user.email === email)?.email;
+
+let findUser = 
+    (username) => UserDataBase.find(user => user.username === username)?.username;
+
+let validatePassword = 
+    (password) => {
+            return (/[A-Z]/       .test(password) &&
+            /[a-z]/       .test(password) &&
+            /[0-9]/       .test(password) &&
+            /[^A-Za-z0-9]/.test(password) &&
+            password.length > 4);
+    };
+
 let checkPassword = 
-    (email, password) => UserDataBase.find(user => user.email === email && user.password === password)?.password 
-        === password ? true : false;
-
-
-// let doesMailExist = findEmail("amy@mail.com");
-// if(Debug)
-//     console.log(doesMailExist);
-
-// Wrong password
-// let isPasswordOk = checkPassword("amy@mail.com", "pass123");
-// if(Debug)
-//     console.log(isPasswordOk);
-
-// Correct password
-// let isPasswordOk = checkPassword("amy@mail.com", "pass1234");
-// if(Debug)
-//     console.log(isPasswordOk);
+    (username, password) => UserDataBase.find(user => user.email === email && user.username === username)?.username 
+        === password;
 
 let login = () => {
     let email, password, userFound, correctPassword;
@@ -127,14 +178,25 @@ let login = () => {
     confirm("Welcome");
 }
 
-// signup();
-// login();
+class TicketsInCart {
+    constructor(id, description, date, amount, total) {
+        this.id = id;
+        this.description = description;
+        this.date = date;
+        this.amount = amount;
+        this.total = total
+    }
+
+    calulateTicketCost (cost) {
+        this.total = this.amount * cost;
+    } 
+}
 
 const products = {
     total: 4,
     items: [
         {
-            description: "shirts",
+            description: "Washington vs ",
             cost: 85,
             stock: 5
         }, {
@@ -155,11 +217,6 @@ const products = {
 
 let item_confirmStock = (description) => products.items.find(item => item.description === description)?.stock;
 let item_findCost = (description) => products.items.find(items => items.description === description).cost;
-
-// if(Debug) {
-    //     console.log(item_confirmStock("shirt"));
-    //     console.log(item_findCost("shirt"));
-//}
 
 function calculateNewTotal(amount, item, total) {
     
@@ -222,5 +279,3 @@ let additemsToCart = () => {
     }
     while(!exit);
 }
-
-//additemsToCart();

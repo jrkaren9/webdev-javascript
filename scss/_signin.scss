@@ -15,6 +15,12 @@
         margin: 1rem 0 2rem 0;
         max-width: 1500px;
 
+        .input-info{
+            @media only screen and (min-width: $screen-sm) {
+                max-width: 50%;
+            }             
+        }
+
         .required-shadow {
             border-color: $light-red; 
             
