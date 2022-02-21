@@ -44,7 +44,7 @@
                 <div class="col-10 col-sm-3 col-lg-2">
                     <div class="account d-flex justify-content-end">
                         <div class="header__searchitem search__login d-flex justify-content-end">
-                            <a href="../pages/login.html">Log in</a>
+                            <a href="">Log in</a>
                         </div>
                         <div class="vertical-line">|</div>
                         <div class="header__searchitem search__signin">
@@ -160,49 +160,17 @@
 
             <div class="d-flex justify-content-center align-items-center">
                 <div class="contact container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <form class="input-info signin">
+                    <form class="input-info login">
                         
                         <div class="row g-2">
-                            <div class="contact-2__title">Contact Info</div>
-                            <div class="col-sm">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control required" id="firstNameInput" placeholder="First Name" aria-describedby="firstNameHelp" aria-label="First name">
-                                    <label for="firstNameInput">First Name</label>
-                                    <div id="firstNameHelp" class="form-text"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control required" id="lastNameInput" placeholder="Last Name" aria-describedby="lastNameHelp"  aria-label="Last name">
-                                    <label for="lastNameInput">Last Name</label>
-                                    <div id="lastNameHelp" class="form-text"></div>
-                                </div>
-                            </div>
+                            <div class="contact-2__title">Account Info</div>    
                         </div>
     
-                        <div class="row g-2">
-                            <div class="col-sm">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control required" id="emailInput" placeholder="Email" aria-describedby="emailHelp" aria-label="Email">
-                                    <label for="emailInput">Email</label>
-                                    <div id="emailHelp" class="form-text"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="phoneInput" placeholder="Phone Number" aria-describedby="phoneHelp" aria-label="Phone Number">
-                                    <label for="phoneInput">Phone Number</label>
-                                    <div id="phoneHelp" class="form-text"></div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row g-1 justify-content-sm-center">
-                            <div class="contact-2__title">Account Info</div>
                             <div class="col-12 col-md-8">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control required" id="usernameInput" placeholder="Username" aria-describedby="usernameHelp" aria-label="Username">
-                                    <label for="usernameInput">Username</label>
+                                    <input type="text" class="form-control required" id="usernameLogin" placeholder="Username" aria-describedby="usernameHelp" aria-label="Username">
+                                    <label for="usernameLogin">Username</label>
                                     <div id="usernameHelp" class="form-text"></div>
                                 </div>
                             </div>
@@ -211,8 +179,8 @@
                         <div class="row g-1 justify-content-sm-center">
                             <div class="col-12 col-md-8">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control required" id="passwordInput" placeholder="Password" aria-describedby="passwordHelp" aria-label="Password">
-                                    <label for="passwordInput">Password</label>
+                                    <input type="password" class="form-control required" id="passwordLogin" placeholder="Password" aria-describedby="passwordHelp" aria-label="Password">
+                                    <label for="passwordLogin">Password</label>
                                     <div id="passwordHelp" class="form-text"></div>
                                 </div>
                             </div>
@@ -225,7 +193,7 @@
                         </div>
                     </form>
                     <div class="login-redirect d-flex justify-content-center">
-                        <pc>Already a member? <a href="../pages/login.html">Log in</a></pc>
+                        <pc>Not a member? <a href="../pages/signin.html">Create an account</a></pc>
                     </div>
                 </div>     
             </div>
@@ -368,6 +336,5 @@
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
         <script src="../js/main.js"></script>
-        <script src="../js/signin.js"></script>
     </body>
 </html>

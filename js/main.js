@@ -21,12 +21,6 @@ if(Debug) {
     UserDataBase.push(new User("Fer", "Perez", "fer@mail.com", "", "fer.p", "pass5678"));
 }
 
-//console.log(button);
-let button = document.getElementsByClassName("submit-button");
-if(button.length === 1) {
-    button[0].addEventListener("click", (event) => signup(event)) 
-}
-
 // let username = document.getElementById("usernameInput").value;
 // console.log(username);
 
@@ -96,48 +90,7 @@ let changeRequiredStatus = (element, helpMessage, status) => {
     }
 }
 
-document.getElementById("firstNameInput").onblur = (event) => checkExistance(event);
-document.getElementById("lastNameInput").onblur = (event) => checkExistance(event);
-document.getElementById("passwordInput").onblur = (event) => checkExistance(event, "Password");
-document.getElementById("usernameInput").onblur = (event) => checkExistance(event, "Username");
-document.getElementById("emailInput").onblur = (event) => checkExistance(event, "Email");
-
 initializeDatabase();
-
-let signup = (event) => {
-
-    event.preventDefault(); 
-
-    let accountInfo = document.getElementsByClassName("input-info")[0].getElementsByClassName("required");
-    //console.log(accountInfo[0].getElementsByClassName("form-control"));
-
-    let firstname, lastname, email, phone, username, password, missingRequired = 0;
-
-    for (let input = 0; input < accountInfo.length; input++) {
-        const element = accountInfo[input];
-        missingRequired += checkExistanceBase(element, element.getAttribute("placeholder"));
-    }
-
-    console.log(missingRequired);
-    firstname = document.getElementById("firstNameInput").value;
-    lastname = document.getElementById("lastNameInput").value;
-    email = document.getElementById("emailInput").value;
-    phone = document.getElementById("phoneInput").value;
-    username = document.getElementById("usernameInput").value;
-    password = document.getElementById("passwordInput").value;
-
-    //console.log(missingRequired); 
-
-    // create user
-    if(missingRequired <= 0) {
-        const UserCreated = new User(firstname, lastname, email, phone, username, password);
-        if (UserCreated) {
-            UserDataBase.push(UserCreated);
-            localStorage.setItem("UserDatabase", JSON.stringify(UserDataBase));
-            console.log(JSON.parse(localStorage.getItem("UserDatabase")) || null);
-        }
-    }
-}
 
 let findEmail = 
     (email) => UserDataBase.find(user => user.email === email)?.email;

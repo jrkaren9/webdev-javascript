@@ -3,11 +3,9 @@
 ***********************************/
 
 .content-signin {
-    background-color: #FFF;
+    background-color: $content-background-color;
     display: grid;
     grid-template-areas:
-        "banner"
-        "input"
         "input";
 
     .contact {
@@ -15,19 +13,43 @@
         margin: 1rem 0 2rem 0;
         max-width: 1500px;
 
-        .input-info{
-            @media only screen and (min-width: $screen-sm) {
-                max-width: 50%;
-            }             
-        }
-
-        .required-shadow {
-            border-color: $light-red; 
+        .input-info {
+            padding: 1rem;
+            background-color: #FFF;
             
-            &:focus {
-                box-shadow: 0 0 0 0.25rem $light-red-shadow; 
+
+            .form-text {
+                margin-top: 7px;
+            }
+
+            .required-shadow {
+                border-color: $light-red; 
+                
+                &:focus {
+                    box-shadow: 0 0 0 0.25rem $light-red-shadow; 
+                }
             }
         }
+
+        .login-redirect {
+            padding: 1rem;
+            background-color: #000;
+            color: #FFF;
+            width: 100%;
+
+            a {
+                color: rgb(98, 213, 255);
+            }
+        }
+
+        @media only screen and (min-width: $screen-sm) {
+            .login-redirect, .input-info {
+                width: 65%;
+                max-width: 70vw;
+            }
+        }   
+
+
     }
 }    
 
