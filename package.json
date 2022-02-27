@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jrkaren9/webdev/issues"
   },
-  "homepage": "https://github.com/jrkaren9/webdev#readme"
+  "homepage": "https://github.com/jrkaren9/webdev#readme",
+  "dependencies": {
+    "toastify-js": "^1.11.2"
+  }
 }

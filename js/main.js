@@ -15,12 +15,6 @@ class User {
     }
 }
 
-// populate database for testing
-if(Debug) {
-    UserDataBase.push(new User("Amy", "Perez", "amy@mail.com", "", "amy.perez", "pass1234"));
-    UserDataBase.push(new User("Fer", "Perez", "fer@mail.com", "", "fer.p", "pass5678"));
-}
-
 // let username = document.getElementById("usernameInput").value;
 // console.log(username);
 
@@ -28,6 +22,8 @@ let initializeDatabase = () => {
     //console.log(JSON.parse(localStorage.getItem("UserDatabase")) || null);
     UserDataBase = (JSON.parse(localStorage.getItem("UserDatabase")) || []);
 }
+
+initializeDatabase();
 
 let checkExistance = (event, input) => {
     let element = event.target;
@@ -80,7 +76,7 @@ let changeRequiredStatus = (element, helpMessage, status) => {
             element.classList.add("required-shadow");
             return 1;
         case "invalid-pass":
-            helpMessage.innerText = "The password should contain at least: one uppercase letter, one lowecase letter, one figit, one special symbol, and have more than 4 characters"; 
+            helpMessage.innerText = "The password should contain at least: one uppercase letter, one lowecase letter, one digit, one special symbol, and have more than 4 characters"; 
             element.classList.add("required-shadow");
             return 1;
         case "valid":
@@ -89,8 +85,6 @@ let changeRequiredStatus = (element, helpMessage, status) => {
             return 0;
     }
 }
-
-initializeDatabase();
 
 let findEmail = 
     (email) => UserDataBase.find(user => user.email === email)?.email;
@@ -169,7 +163,7 @@ const products = {
 };
 
 let item_confirmStock = (description) => products.items.find(item => item.description === description)?.stock;
-let item_findCost = (description) => products.items.find(items => items.description === description).cost;
+let item_findCost = (description) => products.items.find(items => items.description === description)?.cost;
 
 function calculateNewTotal(amount, item, total) {
     
@@ -178,7 +172,7 @@ function calculateNewTotal(amount, item, total) {
     if(cost != null) {
         for (let i = 0; i < amount; i++) {
             if (i > 2) {
-                total += cost*0.9;5
+                total += cost*0.9;
             }
             else {
                 total += cost;

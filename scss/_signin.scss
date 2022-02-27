@@ -2,7 +2,17 @@
         Content
 ***********************************/
 
-.content-signin {
+.user-created {
+    background: $dark-red;
+    color: white;
+    padding: 20px;
+    display: block;
+    right: 10px;
+    z-index: 1;
+    position: fixed;
+}
+
+#content-signin {
     background-color: $content-background-color;
     display: grid;
     grid-template-areas:

@@ -3,7 +3,6 @@ let signin = (event) => {
     event.preventDefault(); 
 
     let accountInfo = document.getElementsByClassName("input-info")[0].getElementsByClassName("required");
-    //console.log(accountInfo[0].getElementsByClassName("form-control"));
 
     let firstname, lastname, email, phone, username, password, missingRequired = 0;
 
@@ -19,15 +18,24 @@ let signin = (event) => {
     username = document.getElementById("usernameInput").value;
     password = document.getElementById("passwordInput").value;
 
-    //console.log(missingRequired); 
-
     // create user
     if(missingRequired <= 0) {
         const UserCreated = new User(firstname, lastname, email, phone, username, password);
         if (UserCreated) {
             UserDataBase.push(UserCreated);
             localStorage.setItem("UserDatabase", JSON.stringify(UserDataBase));
-            console.log(JSON.parse(localStorage.getItem("UserDatabase")) || null);
+            //console.log(JSON.parse(localStorage.getItem("UserDatabase")) || null)
+ 
+            Toastify({
+                text: "The user was created correctly",
+                selector: "content-signin",
+                duration: 3000,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: false, // Prevents dismissing of toast on hover
+                className: "user-created",
+                callback: function(){} // Callback after click
+            }).showToast();
         }
     }
 }
@@ -46,3 +54,15 @@ let button = document.getElementsByClassName("submit-button");
 if(button.length === 1) {
     button[0].addEventListener("click", (event) => signin(event)) 
 }
+
+
+Toastify({
+    text: "The user was created correctly",
+    selector: "content-signin",
+    duration: -1,
+    gravity: "top", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: false, // Prevents dismissing of toast on hover
+    className: "user-created",
+    callback: function(){} // Callback after click
+}).showToast();

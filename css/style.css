@@ -328,40 +328,50 @@ ul {
 /***********************************
         Content
 ***********************************/
-.content-signin {
+.user-created {
+  background: #6f0f27;
+  color: white;
+  padding: 20px;
+  display: block;
+  right: 10px;
+  z-index: 1;
+  position: fixed;
+}
+
+#content-signin {
   background-color: #37393E;
   display: grid;
   grid-template-areas: "input";
 }
-.content-signin .contact {
+#content-signin .contact {
   grid-area: input;
   margin: 1rem 0 2rem 0;
   max-width: 1500px;
 }
-.content-signin .contact .input-info {
+#content-signin .contact .input-info {
   padding: 1rem;
   background-color: #FFF;
 }
-.content-signin .contact .input-info .form-text {
+#content-signin .contact .input-info .form-text {
   margin-top: 7px;
 }
-.content-signin .contact .input-info .required-shadow {
+#content-signin .contact .input-info .required-shadow {
   border-color: #c20031;
 }
-.content-signin .contact .input-info .required-shadow:focus {
+#content-signin .contact .input-info .required-shadow:focus {
   box-shadow: 0 0 0 0.25rem rgba(194, 0, 49, 0.25);
 }
-.content-signin .contact .login-redirect {
+#content-signin .contact .login-redirect {
   padding: 1rem;
   background-color: #000;
   color: #FFF;
   width: 100%;
 }
-.content-signin .contact .login-redirect a {
+#content-signin .contact .login-redirect a {
   color: #62d5ff;
 }
 @media only screen and (min-width: 576px) {
-  .content-signin .contact .login-redirect, .content-signin .contact .input-info {
+  #content-signin .contact .login-redirect, #content-signin .contact .input-info {
     width: 65%;
     max-width: 70vw;
   }
