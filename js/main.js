@@ -79,6 +79,10 @@ let changeRequiredStatus = (element, helpMessage, status) => {
             helpMessage.innerText = "The password should contain at least: one uppercase letter, one lowecase letter, one digit, one special symbol, and have more than 4 characters"; 
             element.classList.add("required-shadow");
             return 1;
+        case "invalid-user":
+            helpMessage.innerText = "The username or password is incorrect"; 
+            element.classList.add("required-shadow");
+            return 1;
         case "valid":
             helpMessage.innerText = "";
             element.classList.remove("required-shadow");
@@ -102,28 +106,8 @@ let validatePassword =
     };
 
 let checkPassword = 
-    (username, password) => UserDataBase.find(user => user.email === email && user.username === username)?.username 
+    (username, password) => UserDataBase.find(user => user.username === username)?.password 
         === password;
-
-let login = () => {
-    let email, password, userFound, correctPassword;
-
-    do {
-        email = prompt("Please enter your email:");
-        userFound = findEmail(email);
-        if(!userFound)
-            confirm("There is no user signed with this email");
-    } while(isBlank(email) || !userFound);
-    
-    do {
-        password = prompt("Please enter your password:");
-        correctPassword = checkPassword(email, password);
-        if(!checkPassword(email, password))
-            confirm("Wrong password");
-    } while(isBlank(password) || !correctPassword);
-
-    confirm("Welcome");
-}
 
 class TicketsInCart {
     constructor(id, description, date, amount, total) {

@@ -36,6 +36,11 @@ let signin = (event) => {
                 className: "user-created",
                 callback: function(){} // Callback after click
             }).showToast();
+
+            localStorage.setItem("SessionOn", "true");
+            document.getElementById("rememberUser").checked ? 
+                localStorage.setItem("rememberUser", "true") :
+                localStorage.setItem("rememberUser", "false");
         }
     }
 }
@@ -54,15 +59,3 @@ let button = document.getElementsByClassName("submit-button");
 if(button.length === 1) {
     button[0].addEventListener("click", (event) => signin(event)) 
 }
-
-
-Toastify({
-    text: "The user was created correctly",
-    selector: "content-signin",
-    duration: -1,
-    gravity: "top", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
-    stopOnFocus: false, // Prevents dismissing of toast on hover
-    className: "user-created",
-    callback: function(){} // Callback after click
-}).showToast();

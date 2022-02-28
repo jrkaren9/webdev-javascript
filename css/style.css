@@ -346,11 +346,12 @@ ul {
 #content-signin .contact {
   grid-area: input;
   margin: 1rem 0 2rem 0;
-  max-width: 1500px;
+  width: 100%;
 }
 #content-signin .contact .input-info {
   padding: 1rem;
   background-color: #FFF;
+  width: 80%;
 }
 #content-signin .contact .input-info .form-text {
   margin-top: 7px;
@@ -365,15 +366,15 @@ ul {
   padding: 1rem;
   background-color: #000;
   color: #FFF;
-  width: 100%;
+  width: 80%;
 }
 #content-signin .contact .login-redirect a {
   color: #62d5ff;
 }
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: 768px) {
   #content-signin .contact .login-redirect, #content-signin .contact .input-info {
-    width: 65%;
-    max-width: 70vw;
+    width: 100%;
+    max-width: 40rem;
   }
 }
 

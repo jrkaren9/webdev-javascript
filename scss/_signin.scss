@@ -21,13 +21,13 @@
     .contact {
         grid-area: input;
         margin: 1rem 0 2rem 0;
-        max-width: 1500px;
+        width: 100%;
 
         .input-info {
             padding: 1rem;
             background-color: #FFF;
+            width: 80%;
             
-
             .form-text {
                 margin-top: 7px;
             }
@@ -45,21 +45,19 @@
             padding: 1rem;
             background-color: #000;
             color: #FFF;
-            width: 100%;
+            width: 80%;
 
             a {
                 color: rgb(98, 213, 255);
             }
         }
 
-        @media only screen and (min-width: $screen-sm) {
+        @media only screen and (min-width: $screen-md) {
             .login-redirect, .input-info {
-                width: 65%;
-                max-width: 70vw;
+                width: 100%;
+                max-width: 40rem;
             }
         }   
-
-
     }
 }    
 
