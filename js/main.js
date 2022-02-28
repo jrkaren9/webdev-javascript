@@ -1,6 +1,6 @@
 let Debug = false;
-let UserDataBase = [];
 let UserCart = [];
+let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
 
 let isBlank = (str) => (!str || /^\s*$/.test(str));
 
@@ -15,22 +15,12 @@ class User {
     }
 }
 
-// let username = document.getElementById("usernameInput").value;
-// console.log(username);
-
-let initializeDatabase = () => {
-    //console.log(JSON.parse(localStorage.getItem("UserDatabase")) || null);
-    UserDataBase = (JSON.parse(localStorage.getItem("UserDatabase")) || []);
-}
-
-initializeDatabase();
-
 let checkExistance = (event, input) => {
     let element = event.target;
     checkExistanceBase(element, input);
 };
 
-let checkExistanceBase = (element, input) => {
+let checkExistanceBase = async (element, input) => {
     let help = element.getAttribute("aria-describedby");
     let value = element.value;
     let helpMessage = document.getElementById(help);
@@ -42,17 +32,17 @@ let checkExistanceBase = (element, input) => {
     else {
         switch(input) {
             case "Username":
-                error = findUser(value) ?
+                error = await findUser(value) ?
                     changeRequiredStatus(element, helpMessage, "exists") :
                     changeRequiredStatus(element, helpMessage, "valid");
                 break;
             case "Email":
-                error = findEmail(value) ?
+                error = await findEmail(value) ?
                     changeRequiredStatus(element, helpMessage, "exists") :
                     changeRequiredStatus(element, helpMessage, "valid");
                 break;
             case "Password":
-                error =!validatePassword(value) ?
+                error =! validatePassword(value) ?
                     changeRequiredStatus(element, helpMessage, "invalid-pass") :
                     changeRequiredStatus(element, helpMessage, "valid");
                 break;
@@ -90,12 +80,6 @@ let changeRequiredStatus = (element, helpMessage, status) => {
     }
 }
 
-let findEmail = 
-    (email) => UserDataBase.find(user => user.email === email)?.email;
-
-let findUser = 
-    (username) => UserDataBase.find(user => user.username === username)?.username;
-
 let validatePassword = 
     (password) => {
             return (/[A-Z]/       .test(password) &&
@@ -104,10 +88,6 @@ let validatePassword =
             /[^A-Za-z0-9]/.test(password) &&
             password.length > 4);
     };
-
-let checkPassword = 
-    (username, password) => UserDataBase.find(user => user.username === username)?.password 
-        === password;
 
 class TicketsInCart {
     constructor(id, description, date, amount, total) {
@@ -209,4 +189,51 @@ let additemsToCart = () => {
             exit = 0;
     }
     while(!exit);
+}
+
+let getUsers = async (username) => {
+    let users = await fetch(baseurl + 'users');
+    let userdata = await users.json();
+}
+
+let findUser = async (username) => {
+    let users = await fetch(baseurl + 'users');
+    let userdata = await users.json();
+
+    return userdata.items?.find(user => user.username === username) ? true : false;
+}
+
+let findEmail = async (email) => {
+    let users = await fetch(baseurl + 'users');
+    let userdata = await users.json();
+
+    return userdata.items?.find(user => user.email === email) ? true : false;
+}
+    
+let checkPassword = async (username, password) => {
+    let users = await fetch(baseurl + 'users');
+    let userdata = await users.json();
+
+    return userdata.items?.find(user => user.username === username && user.password === password);
+}
+
+
+let saveUser = async (firstname, lastname, email, phone, username, password) => {
+    let resp = await fetch(baseurl + "users", {
+        method: 'POST',
+        body: JSON.stringify({
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            phone: phone,
+            username: username,
+            password: password,
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+
+    let userCreated = await resp.json();
+    return userCreated.id;
 }

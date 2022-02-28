@@ -1,4 +1,4 @@
-let signin = (event) => {
+let signin = async (event) => {
 
     event.preventDefault(); 
 
@@ -8,7 +8,7 @@ let signin = (event) => {
 
     for (let input = 0; input < accountInfo.length; input++) {
         const element = accountInfo[input];
-        missingRequired += checkExistanceBase(element, element.getAttribute("placeholder"));
+        missingRequired += await checkExistanceBase(element, element.getAttribute("placeholder"));
     }
 
     firstname = document.getElementById("firstNameInput").value;
@@ -20,12 +20,9 @@ let signin = (event) => {
 
     // create user
     if(missingRequired <= 0) {
-        const UserCreated = new User(firstname, lastname, email, phone, username, password);
+        let UserCreated = await saveUser(firstname, lastname, email, phone, username, password);
         if (UserCreated) {
-            UserDataBase.push(UserCreated);
-            localStorage.setItem("UserDatabase", JSON.stringify(UserDataBase));
-            //console.log(JSON.parse(localStorage.getItem("UserDatabase")) || null)
- 
+
             Toastify({
                 text: "The user was created correctly",
                 selector: "content-signin",
@@ -36,12 +33,15 @@ let signin = (event) => {
                 className: "user-created",
                 callback: function(){} // Callback after click
             }).showToast();
-
+            
             localStorage.setItem("SessionOn", "true");
+            localStorage.setItem("userId", UserCreated);
             document.getElementById("rememberUser").checked ? 
                 localStorage.setItem("rememberUser", "true") :
                 localStorage.setItem("rememberUser", "false");
         }
+        else    
+            console.log("here");
     }
 }
 

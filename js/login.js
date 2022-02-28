@@ -1,4 +1,17 @@
-let login = (event) => {
+let preloadLogin = () => {
+    let session = localStorage.getItem("SessionOn"),
+        rememberUser = localStorage.getItem("rememberUser");
+
+    if(session && rememberUser) {
+        
+    }
+}
+
+/**
+ * Event triggered when submitting the login info
+ * @param {*} event 
+ */
+let login = async (event) => {
 
     event.preventDefault(); 
 
@@ -6,18 +19,29 @@ let login = (event) => {
         username = document.getElementById("usernameLogin").value,
         password = document.getElementById("passwordLogin").value;
 
-    checkPassword(username, password) ? successfulLogin(username) : unsuccesfulLogin(usernameElement);
+    let user = await checkPassword(username, password) 
+        user ? successfulLogin(user) : unsuccesfulLogin(usernameElement);
 }
 
+/**
+ * Show error message for invalid user under an input element
+ * @param {Object} element - The input element where the message is shown
+ * @see login() in login.js
+ */
 let unsuccesfulLogin = (element) => {
     let help = element.getAttribute("aria-describedby");
     let helpMessage = document.getElementById(help);
     changeRequiredStatus(element, helpMessage, "invalid-user");
 }
 
-let successfulLogin = (username) => {
+/**
+ * Show a welcome message with toastify-js
+ * @param {string} user - An user object with all its data
+ * @see login() in login.js
+ */
+let successfulLogin = (user) => {
 
-    let name = JSON.parse(localStorage.getItem("UserDatabase")).find(user => user.username === username).firstname;
+    let name = user.firstname;
 
     Toastify({
         text: "Welcome back, " + name + "!",

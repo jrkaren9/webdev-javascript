@@ -19,3 +19,4 @@ console.log(validatePassword("12kJ+"));
 let isPasswordOk = checkPassword("amy@mail.com", "pass1234");
 console.log(isPasswordOk);
 
+let id = await saveUser("ka", "j", "ka@mail.com", "", "ka", "Prueba1+")
