@@ -1,3 +1,4 @@
+
 let Debug = false;
 let UserCart = [];
 let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
@@ -217,7 +218,16 @@ let checkPassword = async (username, password) => {
     return userdata.items?.find(user => user.username === username && user.password === password);
 }
 
-
+/**
+ * Saves the user object in the "database"
+ * @param {string} firstname 
+ * @param {string} lastname 
+ * @param {string} email 
+ * @param {string} phone 
+ * @param {string} username 
+ * @param {string} password 
+ * @returns id: the id of the user when saved in the database
+ */
 let saveUser = async (firstname, lastname, email, phone, username, password) => {
     let resp = await fetch(baseurl + "users", {
         method: 'POST',
@@ -237,3 +247,18 @@ let saveUser = async (firstname, lastname, email, phone, username, password) => 
     let userCreated = await resp.json();
     return userCreated.id;
 }
+
+let changeAccountActions = () => {
+    ({username, userId, SessionOn} = {...localStorage});
+    let accountElement = document.getElementById("account");
+
+    if(JSON.parse(SessionOn) === true)
+    {
+        accountElement.innerHTML = 
+            `<div class="header__searchitem d-flex justify-content-end">` +
+                `<a href="#">${username} <\a>` + 
+            `<\div>`
+    }
+}
+
+changeAccountActions()

@@ -457,15 +457,12 @@ ul {
     margin-left: 175px;
   }
 }
-.topheader .account {
-  margin-right: 5px;
+.topheader #account .header__searchitem {
+  padding: 0 0px;
 }
-.topheader .account .header__searchitem {
-  padding: 0 4px;
-}
-.topheader .account .vertical-line {
-  max-width: 5px;
-  padding: 0;
+.topheader #account .vertical-line {
+  text-align: center;
+  width: auto;
   color: #E5E5E5;
 }
 .topheader .header__search {

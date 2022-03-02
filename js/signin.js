@@ -26,7 +26,7 @@ let signin = async (event) => {
             Toastify({
                 text: "The user was created correctly",
                 selector: "content-signin",
-                duration: 3000,
+                duration: 2000,
                 gravity: "top", // `top` or `bottom`
                 position: "right", // `left`, `center` or `right`
                 stopOnFocus: false, // Prevents dismissing of toast on hover
@@ -35,10 +35,14 @@ let signin = async (event) => {
             }).showToast();
             
             localStorage.setItem("SessionOn", "true");
+            localStorage.setItem("Username", username);
             localStorage.setItem("userId", UserCreated);
             document.getElementById("rememberUser").checked ? 
                 localStorage.setItem("rememberUser", "true") :
                 localStorage.setItem("rememberUser", "false");
+            
+            changeAccountActions();                
+            setTimeout(() => window.location.replace("../index.html"), 3000); 
         }
         else    
             console.log("here");

@@ -50,16 +50,14 @@
         }
     }
 
-    .account {
-        margin-right: 5px;
-
+    #account {
         .header__searchitem {
-            padding: 0 4px;
+            padding: 0 0px;
         }
         
         .vertical-line {
-            max-width: 5px;
-            padding: 0;
+            text-align: center;
+            width: auto;
             color: $almost-white;
         }        
     }
