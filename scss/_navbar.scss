@@ -50,8 +50,12 @@
         }
     }
 
-    .account {
+    #account {
         margin-right: 5px;
+
+        #account-login {
+            width: fit-content;
+        }
 
         .header__searchitem {
             padding: 0 4px;

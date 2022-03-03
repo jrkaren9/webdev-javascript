@@ -1,3 +1,32 @@
+let validatePassword = 
+    (password) => {
+            return (/[A-Z]/       .test(password) &&
+            /[a-z]/       .test(password) &&
+            /[0-9]/       .test(password) &&
+            /[^A-Za-z0-9]/.test(password) &&
+            password.length > 4);
+    };
+
+let saveUser = async (firstname, lastname, email, phone, username, password) => {
+    let resp = await fetch(baseurl + "users", {
+        method: 'POST',
+        body: JSON.stringify({
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            phone: phone,
+            username: username,
+            password: password,
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+
+    let userCreated = await resp.json();
+    return userCreated.id;
+}
+
 let signin = async (event) => {
 
     event.preventDefault(); 
@@ -26,7 +55,7 @@ let signin = async (event) => {
             Toastify({
                 text: "The user was created correctly",
                 selector: "content-signin",
-                duration: 3000,
+                duration: 2000,
                 gravity: "top", // `top` or `bottom`
                 position: "right", // `left`, `center` or `right`
                 stopOnFocus: false, // Prevents dismissing of toast on hover
@@ -35,13 +64,16 @@ let signin = async (event) => {
             }).showToast();
             
             localStorage.setItem("SessionOn", "true");
-            localStorage.setItem("userId", UserCreated);
+            localStorage.setItem(userIdInLocalStorage, UserCreated);
             document.getElementById("rememberUser").checked ? 
                 localStorage.setItem("rememberUser", "true") :
                 localStorage.setItem("rememberUser", "false");
+            
+            preloadLogin();                
+            setTimeout(() => window.location.replace("../index.html"), 4000); 
+
+            history.go(-1);
         }
-        else    
-            console.log("here");
     }
 }
 

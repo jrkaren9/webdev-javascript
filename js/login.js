@@ -1,15 +1,7 @@
-let preloadLogin = () => {
-    let session = localStorage.getItem("SessionOn"),
-        rememberUser = localStorage.getItem("rememberUser");
-
-    if(session && rememberUser) {
-        
-    }
-}
-
 /**
  * Event triggered when submitting the login info
  * @param {*} event 
+ * @see submit-button fires this action from login.html
  */
 let login = async (event) => {
 
@@ -41,7 +33,7 @@ let unsuccesfulLogin = (element) => {
  */
 let successfulLogin = (user) => {
 
-    let name = user.firstname;
+    ({name, id} = user);
 
     Toastify({
         text: "Welcome back, " + name + "!",
@@ -53,6 +45,9 @@ let successfulLogin = (user) => {
         className: "user-created",
         callback: function(){} // Callback after click
     }).showToast();
+
+    localStorage.setItem("SessionOn", "true");
+    localStorage.setItem(userIdInLocalStorage, id)
 }
 
 let button = document.getElementsByClassName("submit-button");

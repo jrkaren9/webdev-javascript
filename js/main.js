@@ -1,4 +1,5 @@
 let Debug = false;
+let userIdInLocalStorage = "userId";
 let UserCart = [];
 let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
 
@@ -80,136 +81,6 @@ let changeRequiredStatus = (element, helpMessage, status) => {
     }
 }
 
-let validatePassword = 
-    (password) => {
-            return (/[A-Z]/       .test(password) &&
-            /[a-z]/       .test(password) &&
-            /[0-9]/       .test(password) &&
-            /[^A-Za-z0-9]/.test(password) &&
-            password.length > 4);
-    };
-
-class TicketsInCart {
-    constructor(id, description, date, amount, total) {
-        this.id = id;
-        this.description = description;
-        this.date = date;
-        this.amount = amount;
-        this.total = total
-    }
-
-    calulateTicketCost (cost) {
-        this.total = this.amount * cost;
-    } 
-}
-
-const products = {
-    total: 4,
-    items: [
-        {
-            description: "Washington vs ",
-            cost: 85,
-            stock: 5
-        }, {
-            description: "jerseys",
-            cost: 120,
-            stock: 3
-        }, {
-            description: "shorts",
-            cost: 45,
-            stock: 0
-        }, {
-            description: "sweaters",
-            cost: 110,
-            stock: 10
-        }
-    ]
-};
-
-let item_confirmStock = (description) => products.items.find(item => item.description === description)?.stock;
-let item_findCost = (description) => products.items.find(items => items.description === description)?.cost;
-
-function calculateNewTotal(amount, item, total) {
-    
-    let cost = item_findCost(item);
-
-    if(cost != null) {
-        for (let i = 0; i < amount; i++) {
-            if (i > 2) {
-                total += cost*0.9;
-            }
-            else {
-                total += cost;
-            }
-        }   
-        
-        if(Debug)
-            console.log(total);
-        return total;
-    }
-    else 
-        return 0;
-}
-
-let additemsToCart = () => {
-    let exit = false;
-    
-    do {
-        let total = 0, 
-            item, 
-            amount, 
-            decreaseAmount = true, 
-            itemStock;
-     
-        do {
-            item = prompt("What item do you want?");
-            itemStock = item_confirmStock(item);
-            if(!itemStock)
-                alert("We don't have that item in this store");
-        } while(!itemStock || itemStock <= 0);
-        
-        do {
-            amount = parseInt(prompt("How many " + item + " do you want to add? After three, each new one has a discount of 10%"));
-            if(itemStock < amount && amount > 0) {
-                amount = 0;
-                decreaseAmount = confirm("We only have " + itemStock + ". Do you want to select less items?");
-            }
-        } while (amount <= 0 && decreaseAmount);
-    
-        if(amount > 0) {
-            total = calculateNewTotal(amount, item, total);
-            exit = confirm("The total is $" + total.toFixed(2) + ". Confirm your selection");
-
-            if(exit) {
-                UserCart.push(new ProductInCart(item, amount, total));
-                console.log(UserCart);
-            }
-        }
-        else 
-            exit = 0;
-    }
-    while(!exit);
-}
-
-let getUsers = async (username) => {
-    let users = await fetch(baseurl + 'users');
-    let userdata = await users.json();
-}
-
-let findUser = async (username) => {
-    let users = await fetch(baseurl + 'users');
-    let userdata = await users.json();
-
-    return userdata.items?.find(user => user.username === username) ? true : false;
-}
-
-let findEmail = async (email) => {
-    let users = await fetch(baseurl + 'users');
-    let userdata = await users.json();
-
-    return userdata.items?.find(user => user.email === email) ? true : false;
-}
-    
 let checkPassword = async (username, password) => {
     let users = await fetch(baseurl + 'users');
     let userdata = await users.json();
@@ -217,23 +88,108 @@ let checkPassword = async (username, password) => {
     return userdata.items?.find(user => user.username === username && user.password === password);
 }
 
-
-let saveUser = async (firstname, lastname, email, phone, username, password) => {
-    let resp = await fetch(baseurl + "users", {
-        method: 'POST',
-        body: JSON.stringify({
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-            phone: phone,
-            username: username,
-            password: password,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-
-    let userCreated = await resp.json();
-    return userCreated.id;
+let getUsers = async (username) => {
+    let users = await fetch(baseurl + 'users');
+   
+    return await users.json();
 }
+
+let findUser = async (username) => {
+    let users = await fetch(baseurl + 'users');
+    let userdata = await users.json();
+
+    return userdata.items?.find(user => user.username === username);
+}
+
+let findEmail = async (email) => {
+    let users = await fetch(baseurl + 'users');
+    let userdata = await users.json();
+
+    return userdata.items?.find(user => user.email === email);
+}
+
+let findUserDataById = async (id) => {
+    let user = await fetch(baseurl + 'users/' + id);
+    
+    return await user.json();
+}
+
+let loginElement = 
+`<div class="header__searchitem search__login d-flex justify-content-end">
+    <a href="../pages/login.html">Log in</a>
+</div>
+<div class="vertical-line">|</div>
+<div class="header__searchitem search__signin">
+    <a href="../pages/signin.html">Sign in</a>
+</div>`
+
+let createAccountElement = (username, firstname, lastname) => {
+    let accountElement = 
+    `<div id="account-button">
+    <p>${username}</p>
+    <div id="account-options">
+        <div class="account-header">
+            <p>${firstname} ${lastname}</p>
+            <p>Rise up, DC!</p>
+        </div>
+        <div class="account-menu">
+            <ul>
+                <li>
+                    <a>My account</a></li>
+                <li>
+                    <a>My <span>tickets</span></a>
+                </li>
+                <li>
+                    <a>My <span>cart</span></a>
+                </li>
+                <li>
+                    <a>Help</a>
+                </li>
+                <li>
+                    <a id="signout">Sign Out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>`;
+
+    return accountElement;
+}
+
+let preloadLogin = async () => {
+    let session = localStorage.getItem("SessionOn"),
+        rememberUser = localStorage.getItem("rememberUser"),
+        element = document.getElementById("account");
+
+    if(JSON.parse(session) == true || JSON.parse(rememberUser) == true) {
+        let id = localStorage.getItem("userId");
+        let user = await findUserDataById(id);
+        ({username, firstname, lastname} = user);
+        element.innerHTML = createAccountElement(username, firstname, lastname);
+        
+        document.getElementById("account-button")
+            .addEventListener("click", changeAccountStatus);
+            
+        document.getElementById("signout").addEventListener("click", event => {
+            event.preventDefault;
+            logout()
+        });
+    }
+    /**Load the login and signin options */
+    else  
+    {
+        element.innerHTML = loginElement;
+    }
+}
+
+preloadLogin();
+
+let logout = () => {
+    localStorage.setItem("SessionOn", "false");
+    document.getElementById("account-button").removeEventListener("click", changeAccountStatus);
+    document.getElementById("account").innerHTML = loginElement;
+}
+
+let changeAccountStatus = () => document.getElementById("account-options")?.style.display == "inline-block" ? 
+    document.getElementById("account-options").style.display = "none" :
+    document.getElementById("account-options").style.display = "inline-block";
