@@ -126,7 +126,7 @@ let loginElement =
 </div>`
 
 let createLoginElement = () => {
-    let href = window.location.href.includes('index.html') ? 'pages/' : '../pages/';
+    let href = window.location.href.includes('index.html') ? './pages/' : '../pages/';
 
     let loginElement = 
     `<div class="header__searchitem search__login d-flex justify-content-end">
