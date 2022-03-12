@@ -55,7 +55,7 @@ let signin = async (event) => {
             Toastify({
                 text: "The user was created correctly",
                 selector: "content-signin",
-                duration: 2000,
+                duration: 3000,
                 gravity: "top", // `top` or `bottom`
                 position: "right", // `left`, `center` or `right`
                 stopOnFocus: false, // Prevents dismissing of toast on hover
@@ -68,11 +68,8 @@ let signin = async (event) => {
             document.getElementById("rememberUser").checked ? 
                 localStorage.setItem("rememberUser", "true") :
                 localStorage.setItem("rememberUser", "false");
-            
-            preloadLogin();                
-            setTimeout(() => window.location.replace("../index.html"), 4000); 
-
-            history.go(-1);
+                         
+            setTimeout(() => window.location.replace("../index.html"), 4000);
         }
     }
 }

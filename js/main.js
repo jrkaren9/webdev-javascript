@@ -159,10 +159,9 @@ let createAccountElement = (username, firstname, lastname) => {
 
 let preloadLogin = async () => {
     let session = localStorage.getItem("SessionOn"),
-        rememberUser = localStorage.getItem("rememberUser"),
         element = document.getElementById("account");
 
-    if(JSON.parse(session) == true || JSON.parse(rememberUser) == true) {
+    if(JSON.parse(session) == true) {
         let id = localStorage.getItem("userId");
         let user = await findUserDataById(id);
         ({username, firstname, lastname} = user);
@@ -188,7 +187,9 @@ preloadLogin();
 let logout = () => {
     localStorage.setItem("SessionOn", "false");
     document.getElementById("account-button").removeEventListener("click", changeAccountStatus);
-    document.getElementById("account").innerHTML = loginElement;
+    
+    setTimeout(() => document.getElementById("account").innerHTML = loginElement, 1000);
+    
 }
 
 let changeAccountStatus = () => document.getElementById("account-options")?.style.display == "inline-block" ? 
