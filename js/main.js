@@ -128,13 +128,16 @@ let loginElement =
 let createLoginElement = () => {
     let href = window.location.href.includes('index.html') ? 'pages/' : '../pages/';
 
+    let loginElement = 
     `<div class="header__searchitem search__login d-flex justify-content-end">
         <a href="${href}login.html">Log in</a>
     </div>
     <div class="vertical-line">|</div>
     <div class="header__searchitem search__signin">
         <a href="${href}signin.html">Sign in</a>
-    </div>`
+    </div>`;
+
+    return loginElement;
 }
 
 let createAccountElement = (username, firstname, lastname) => {
@@ -200,7 +203,7 @@ let logout = () => {
     localStorage.setItem("SessionOn", "false");
     document.getElementById("account-button").removeEventListener("click", changeAccountStatus);
     
-    setTimeout(() => document.getElementById("account").innerHTML = loginElement, 500);
+    setTimeout(() => document.getElementById("account").innerHTML = createLoginElement(), 500);
     
 }
 
