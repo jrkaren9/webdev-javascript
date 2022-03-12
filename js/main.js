@@ -1,6 +1,7 @@
 
 let Debug = false;
 let userIdInLocalStorage = "userId";
+let rememberUserInLocalStorage = "rememberUser";
 let UserCart = [];
 let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
 
@@ -89,7 +90,7 @@ let checkPassword = async (username, password) => {
     return userdata.items?.find(user => user.username === username && user.password === password);
 }
 
-let getUsers = async (username) => {
+let getUsers = async () => {
     let users = await fetch(baseurl + 'users');
    
     return await users.json();
@@ -123,6 +124,18 @@ let loginElement =
 <div class="header__searchitem search__signin">
     <a href="../pages/signin.html">Sign in</a>
 </div>`
+
+let createLoginElement = () => {
+    let href = window.location.href.includes('index.html') ? 'pages/' : '../pages/';
+
+    `<div class="header__searchitem search__login d-flex justify-content-end">
+        <a href="${href}login.html">Log in</a>
+    </div>
+    <div class="vertical-line">|</div>
+    <div class="header__searchitem search__signin">
+        <a href="${href}signin.html">Sign in</a>
+    </div>`
+}
 
 let createAccountElement = (username, firstname, lastname) => {
     let accountElement = 
@@ -163,8 +176,7 @@ let preloadLogin = async () => {
 
     if(JSON.parse(session) == true) {
         let id = localStorage.getItem("userId");
-        let user = await findUserDataById(id);
-        ({username, firstname, lastname} = user);
+        ({username, firstname, lastname} =  await findUserDataById(id));
         element.innerHTML = createAccountElement(username, firstname, lastname);
         
         document.getElementById("account-button")
@@ -188,7 +200,7 @@ let logout = () => {
     localStorage.setItem("SessionOn", "false");
     document.getElementById("account-button").removeEventListener("click", changeAccountStatus);
     
-    setTimeout(() => document.getElementById("account").innerHTML = loginElement, 1000);
+    setTimeout(() => document.getElementById("account").innerHTML = loginElement, 500);
     
 }
 

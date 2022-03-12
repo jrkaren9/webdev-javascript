@@ -33,12 +33,12 @@ let unsuccesfulLogin = (element) => {
  */
 let successfulLogin = (user) => {
 
-    ({name, id} = user);
+    ({firstname, id} = user);
 
     Toastify({
-        text: "Welcome back, " + name + "!",
+        text: "Welcome back, " + firstname + "!",
         selector: "content-signin",
-        duration: 3000,
+        duration: 1500,
         gravity: "top", // `top` or `bottom`
         position: "right", // `left`, `center` or `right`
         stopOnFocus: false, // Prevents dismissing of toast on hover
@@ -47,10 +47,27 @@ let successfulLogin = (user) => {
     }).showToast();
 
     localStorage.setItem("SessionOn", "true");
-    localStorage.setItem(userIdInLocalStorage, id)
+    localStorage.setItem(rememberUserInLocalStorage, document.getElementById("rememberUser").checked);
+    localStorage.setItem(userIdInLocalStorage, id);
+
+    setTimeout(() => window.location.replace("../index.html"), 1500);
 }
 
 let button = document.getElementsByClassName("submit-button");
 if(button.length === 1) {
     button[0].addEventListener("click", (event) => login(event)) 
 }
+
+let fillLogin = async () => {
+    let rememberUser = JSON.parse(localStorage.getItem(rememberUserInLocalStorage));
+    let userId = localStorage.getItem(userIdInLocalStorage);
+    
+    if(rememberUser == true && userId)
+    {
+        ({username, password} = await findUserDataById(userId));
+        document.getElementById("usernameLogin").value = username, document.getElementById("passwordLogin").value = password;
+        document.getElementById("rememberUser").checked = rememberUser;
+    }
+}
+
+fillLogin();
