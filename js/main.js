@@ -193,7 +193,7 @@ let preloadLogin = async () => {
     /**Load the login and signin options */
     else  
     {
-        element.innerHTML = loginElement;
+        element.innerHTML = createLoginElement();
     }
 }
 
