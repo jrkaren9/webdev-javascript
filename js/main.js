@@ -1,9 +1,11 @@
 
-let Debug = false;
-let userIdInLocalStorage = "userId";
-let rememberUserInLocalStorage = "rememberUser";
+import { createTopHeaderElement, createAccountElement, createLoginElement } from './components.js';
+
+export let userIdInLocalStorage = "userId";
+export let rememberUserInLocalStorage = "rememberUser";
 let UserCart = [];
-let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
+export let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
+
 
 let isBlank = (str) => (!str || /^\s*$/.test(str));
 
@@ -18,12 +20,28 @@ class User {
     }
 }
 
-let checkExistance = (event, input) => {
+export let checkPassword = async (username, password) => {
+    let users = await fetch(baseurl + 'users');
+    let userdata = await users.json();
+
+    return userdata.items?.find(user => user.username === username && user.password === password);
+}
+
+let validatePassword = 
+    (password) => {
+            return (/[A-Z]/       .test(password) &&
+            /[a-z]/       .test(password) &&
+            /[0-9]/       .test(password) &&
+            /[^A-Za-z0-9]/.test(password) &&
+            password.length > 4);
+    };
+
+export let checkExistance = (event, input) => {
     let element = event.target;
     checkExistanceBase(element, input);
 };
 
-let checkExistanceBase = async (element, input) => {
+export let checkExistanceBase = async (element, input) => {
     let help = element.getAttribute("aria-describedby");
     let value = element.value;
     let helpMessage = document.getElementById(help);
@@ -83,13 +101,6 @@ let changeRequiredStatus = (element, helpMessage, status) => {
     }
 }
 
-let checkPassword = async (username, password) => {
-    let users = await fetch(baseurl + 'users');
-    let userdata = await users.json();
-
-    return userdata.items?.find(user => user.username === username && user.password === password);
-}
-
 let getUsers = async () => {
     let users = await fetch(baseurl + 'users');
    
@@ -110,67 +121,10 @@ let findEmail = async (email) => {
     return userdata.items?.find(user => user.email === email);
 }
 
-let findUserDataById = async (id) => {
+export let findUserDataById = async (id) => {
     let user = await fetch(baseurl + 'users/' + id);
     
     return await user.json();
-}
-
-let loginElement = 
-`<div class="header__searchitem search__login d-flex justify-content-end">
-    <a href="../pages/login.html">Log in</a>
-</div>
-<div class="vertical-line">|</div>
-<div class="header__searchitem search__signin">
-    <a href="../pages/signin.html">Sign in</a>
-</div>`
-
-let createLoginElement = () => {
-    let href = window.location.href.includes('index.html') ? './pages/' : '../pages/';
-
-    let loginElement = 
-    `<div class="header__searchitem search__login d-flex justify-content-end">
-        <a href="${href}login.html">Log in</a>
-    </div>
-    <div class="vertical-line">|</div>
-    <div class="header__searchitem search__signin">
-        <a href="${href}signin.html">Sign in</a>
-    </div>`;
-
-    return loginElement;
-}
-
-let createAccountElement = (username, firstname, lastname) => {
-    let accountElement = 
-    `<div id="account-button">
-    <p>${username}</p>
-    <div id="account-options">
-        <div class="account-header">
-            <p>${firstname} ${lastname}</p>
-            <p>Rise up, DC!</p>
-        </div>
-        <div class="account-menu">
-            <ul>
-                <li>
-                    <a>My account</a></li>
-                <li>
-                    <a>My <span>tickets</span></a>
-                </li>
-                <li>
-                    <a>My <span>cart</span></a>
-                </li>
-                <li>
-                    <a>Help</a>
-                </li>
-                <li>
-                    <a id="signout">Sign Out</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    </div>`;
-
-    return accountElement;
 }
 
 let preloadLogin = async () => {
@@ -179,7 +133,7 @@ let preloadLogin = async () => {
 
     if(JSON.parse(session) == true) {
         let id = localStorage.getItem("userId");
-        ({username, firstname, lastname} =  await findUserDataById(id));
+        let {username, firstname, lastname} =  await findUserDataById(id);
         element.innerHTML = createAccountElement(username, firstname, lastname);
         
         document.getElementById("account-button")
@@ -197,6 +151,7 @@ let preloadLogin = async () => {
     }
 }
 
+createTopHeaderElement();
 preloadLogin();
 
 let logout = () => {
@@ -204,9 +159,10 @@ let logout = () => {
     document.getElementById("account-button").removeEventListener("click", changeAccountStatus);
     
     setTimeout(() => document.getElementById("account").innerHTML = createLoginElement(), 500);
-    
 }
 
 let changeAccountStatus = () => document.getElementById("account-options")?.style.display == "inline-block" ? 
     document.getElementById("account-options").style.display = "none" :
     document.getElementById("account-options").style.display = "inline-block";
+
+

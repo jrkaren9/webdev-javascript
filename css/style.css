@@ -456,7 +456,7 @@ ul {
 /***********************************
             TOP-HEADER
 ***********************************/
-.topheader {
+#topheader {
   background-color: #37393E;
   grid-area: "header";
   /***********************************
@@ -470,133 +470,125 @@ ul {
    ***********************************/
   /* Extra functionality for navbar */
 }
-.topheader .logo_team {
+#topheader .logo_team {
   z-index: 1;
   position: absolute;
   justify-content: center;
   margin-top: 5px;
   width: 175px;
 }
-.topheader .header {
+#topheader .header {
   margin: 0;
   padding: 5px 0;
 }
-.topheader .header__searchitem a {
+#topheader .header__searchitem a {
   text-decoration: none;
   color: #E5E5E5;
 }
-.topheader .headder__teamname-container {
+#topheader .headder__teamname-container {
   padding: 0px;
 }
-.topheader .headder__teamname-container .header__teamname {
+#topheader .headder__teamname-container .header__teamname {
   font-size: 2rem;
   font-weight: 500;
   font-stretch: ultra-condensed;
   color: #FFFFFF;
   margin: 0;
   margin-left: 15px;
-  width: auto;
 }
 @media only screen and (min-width: 992px) {
-  .topheader .headder__teamname-container .header__teamname {
+  #topheader .headder__teamname-container .header__teamname {
     margin-left: 175px;
   }
 }
-.topheader #account {
+#topheader #account {
   margin-right: 5px;
 }
-.topheader #account #account-login {
-  width: fit-content;
+#topheader #account .header__searchitem {
+  padding: 0 0px;
 }
-.topheader #account .header__searchitem {
-  padding: 0 4px;
-}
-.topheader #account .vertical-line {
-  max-width: 5px;
-  padding: 0;
+#topheader #account .vertical-line {
+  text-align: center;
+  width: 20px;
   color: #E5E5E5;
 }
-.topheader .header__search {
-  max-width: -moz-fit-content;
-  max-width: fit-content;
+#topheader .header__search form {
+  width: 100%;
 }
-.topheader .header__search .btn {
-  margin-right: 13px;
-}
-.topheader .header__search .btn-red:active, .topheader .header__search .btn-red:checked, .topheader .header__search .btn-red:hover {
+#topheader .header__search .btn-red:active, #topheader .header__search .btn-red:checked, #topheader .header__search .btn-red:hover {
   background-color: #c20031;
   border-color: #6f0f27;
 }
-.topheader .header__search .outline-white:focus, .topheader .header__search .outline-white:active, .topheader .header__search .outline-white:focus:active {
+#topheader .header__search .outline-white:focus, #topheader .header__search .outline-white:active, #topheader .header__search .outline-white:focus:active {
   box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.15);
   transition: box-shadow 0.15S ease-in-out;
 }
-.topheader .header__search .outline-white {
+#topheader .header__search .outline-white {
   color: #FFFFFF;
   border-color: #FFFFFF;
   border-radius: 0;
 }
-.topheader .navbar {
+#topheader .navbar {
   padding: 0;
   background-color: #0A1E2C;
 }
-.topheader .navbar .navbar-brand {
+#topheader .navbar .navbar-brand {
   margin-left: 15px;
 }
 @media only screen and (min-width: 992px) {
-  .topheader .navbar .navbar-brand {
+  #topheader .navbar .navbar-brand {
     margin-left: 175px;
   }
 }
-.topheader .nav-item {
+#topheader .nav-item {
   padding: 0 4px;
 }
-.topheader .nav-link {
+#topheader .nav-link {
   margin-left: 15px;
 }
 @media only screen and (min-width: 992px) {
-  .topheader .nav-link {
+  #topheader .nav-link {
     margin-left: 0;
   }
 }
-.topheader .nav-item .dropdown-item {
+#topheader .nav-item .dropdown-item {
   border: 0;
 }
-.topheader .dropdown-menu a {
+#topheader .dropdown-menu a {
   color: rgba(255, 255, 255, 0.4);
 }
-.topheader .dropdown-menu {
+#topheader .dropdown-menu {
   background-color: #0A1E2C;
   margin: 0;
   border-radius: 0;
 }
-.topheader .dropdown-divider {
+#topheader .dropdown-divider {
   color: #FFFFFF;
 }
-.topheader .nav-item:hover {
+#topheader .nav-item:hover {
   font-weight: 500;
 }
-.topheader .navbar-dark .navbar-nav .nav-link:hover {
+#topheader .navbar-dark .navbar-nav .nav-link:hover {
   color: #FFFFFF;
 }
-.topheader .dropdown-menu {
+#topheader .dropdown-menu {
   border: 0;
   padding: 0;
 }
-.topheader .dropdown-item:hover, .topheader .dropdown-item:focus {
+#topheader .dropdown-item:hover, #topheader .dropdown-item:focus {
   background-color: #37393E;
   color: #FFFFFF;
   transition: ease-in;
   transition-duration: 0.3s;
 }
-.topheader .dropdown-divider {
+#topheader .dropdown-divider {
   margin: 0;
 }
-.topheader .navbar .toggler-button {
+#topheader .navbar .toggler-button {
   margin-left: 15px;
 }
 @media only screen and (min-width: 992px) {
-  .topheader .navbar .toggler-button {
+  #topheader .navbar .toggler-button {
     margin-left: 0;
   }
 }

@@ -1,3 +1,5 @@
+import * as main from './main.js'
+
 /**
  * Event triggered when submitting the login info
  * @param {*} event 
@@ -11,7 +13,7 @@ let login = async (event) => {
         username = document.getElementById("usernameLogin").value,
         password = document.getElementById("passwordLogin").value;
 
-    let user = await checkPassword(username, password) 
+    let user = await main.checkPassword(username, password) 
         user ? successfulLogin(user) : unsuccesfulLogin(usernameElement);
 }
 
@@ -33,7 +35,7 @@ let unsuccesfulLogin = (element) => {
  */
 let successfulLogin = (user) => {
 
-    ({firstname, id} = user);
+    let {firstname, id} = user;
 
     Toastify({
         text: "Welcome back, " + firstname + "!",
@@ -47,8 +49,8 @@ let successfulLogin = (user) => {
     }).showToast();
 
     localStorage.setItem("SessionOn", "true");
-    localStorage.setItem(rememberUserInLocalStorage, document.getElementById("rememberUser").checked);
-    localStorage.setItem(userIdInLocalStorage, id);
+    localStorage.setItem(main.rememberUserInLocalStorage, document.getElementById("rememberUser").checked);
+    localStorage.setItem(main.userIdInLocalStorage, id);
 
     setTimeout(() => window.location.replace("../index.html"), 1500);
 }
@@ -59,12 +61,13 @@ if(button.length === 1) {
 }
 
 let fillLogin = async () => {
-    let rememberUser = JSON.parse(localStorage.getItem(rememberUserInLocalStorage));
-    let userId = localStorage.getItem(userIdInLocalStorage);
+    let rememberUser = JSON.parse(localStorage.getItem(main.rememberUserInLocalStorage));
+    let userId = localStorage.getItem(main.userIdInLocalStorage);
     
     if(rememberUser == true && userId)
     {
-        ({username, password} = await findUserDataById(userId));
+        let {username, password} = await main.findUserDataById(userId)
+
         document.getElementById("usernameLogin").value = username, document.getElementById("passwordLogin").value = password;
         document.getElementById("rememberUser").checked = rememberUser;
     }

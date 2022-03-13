@@ -2,7 +2,7 @@
             TOP-HEADER
 ***********************************/
 
-.topheader {
+#topheader {
     background-color: $content-background-color;
     grid-area: "header";        
     
@@ -42,7 +42,6 @@
             color: #FFFFFF;
             margin: 0;
             margin-left: $space-without-logo;
-            width: auto;
     
             @media only screen and (min-width: $screen-lg) {
                 margin-left: $space-for-logo;
@@ -53,29 +52,23 @@
     #account {
         margin-right: 5px;
 
-        #account-login {
-            width: fit-content;
-        }
-
         .header__searchitem {
             padding: 0 0px;
         }
         
         .vertical-line {
             text-align: center;
-            width: auto;
+            width: 20px;
             color: $almost-white;
         }        
     }
     
     .header__search {
-        max-width: -moz-fit-content;
-        max-width: fit-content;
 
-        & .btn {
-            margin-right: 13px;
+        form {
+            width: 100%;
         }
-    
+
         .btn-red {
             &:active, &:checked, &:hover {
                 background-color: $light-red;

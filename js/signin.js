@@ -1,14 +1,7 @@
-let validatePassword = 
-    (password) => {
-            return (/[A-Z]/       .test(password) &&
-            /[a-z]/       .test(password) &&
-            /[0-9]/       .test(password) &&
-            /[^A-Za-z0-9]/.test(password) &&
-            password.length > 4);
-    };
+import * as main from './main.js'
 
 let saveUser = async (firstname, lastname, email, phone, username, password) => {
-    let resp = await fetch(baseurl + "users", {
+    let resp = await fetch(main.baseurl + "users", {
         method: 'POST',
         body: JSON.stringify({
             firstname: firstname,
@@ -37,7 +30,7 @@ let signin = async (event) => {
 
     for (let input = 0; input < accountInfo.length; input++) {
         const element = accountInfo[input];
-        missingRequired += await checkExistanceBase(element, element.getAttribute("placeholder"));
+        missingRequired += await main.checkExistanceBase(element, element.getAttribute("placeholder"));
     }
 
     firstname = document.getElementById("firstNameInput").value;
@@ -55,7 +48,7 @@ let signin = async (event) => {
             Toastify({
                 text: "The user was created correctly",
                 selector: "content-signin",
-                duration: 3000,
+                duration: 2000,
                 gravity: "top", // `top` or `bottom`
                 position: "right", // `left`, `center` or `right`
                 stopOnFocus: false, // Prevents dismissing of toast on hover
@@ -64,22 +57,22 @@ let signin = async (event) => {
             }).showToast();
             
             localStorage.setItem("SessionOn", "true");
-            localStorage.setItem(userIdInLocalStorage, UserCreated);
+            localStorage.setItem(main.userIdInLocalStorage, UserCreated);
             document.getElementById("rememberUser").checked ? 
                 localStorage.setItem("rememberUser", "true") :
                 localStorage.setItem("rememberUser", "false");
                          
-            setTimeout(() => window.location.replace("../index.html"), 4000);
+            setTimeout(() => window.location.replace("../index.html"), 2500);
         }
     }
 }
 
 let addEvents_SignIn = () => {
-    document.getElementById("firstNameInput").onblur = (event) => checkExistance(event);
-    document.getElementById("lastNameInput").onblur = (event) => checkExistance(event);
-    document.getElementById("passwordInput").onblur = (event) => checkExistance(event, "Password");
-    document.getElementById("usernameInput").onblur = (event) => checkExistance(event, "Username");
-    document.getElementById("emailInput").onblur = (event) => checkExistance(event, "Email");
+    document.getElementById("firstNameInput").onblur = (event) => main.checkExistance(event);
+    document.getElementById("lastNameInput").onblur = (event) => main.checkExistance(event);
+    document.getElementById("passwordInput").onblur = (event) => main.checkExistance(event, "Password");
+    document.getElementById("usernameInput").onblur = (event) => main.checkExistance(event, "Username");
+    document.getElementById("emailInput").onblur = (event) => main.checkExistance(event, "Email");
 }
 
 addEvents_SignIn();
