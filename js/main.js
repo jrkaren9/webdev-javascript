@@ -1,5 +1,5 @@
 
-import { createTopHeaderElement, createAccountElement, createLoginElement } from './components.js';
+import { createTopHeaderElement, createAccountElement, createLoginElement, createTicketListElement } from './components.js';
 
 export let userIdInLocalStorage = "userId";
 export let rememberUserInLocalStorage = "rememberUser";
@@ -151,9 +151,6 @@ let preloadLogin = async () => {
     }
 }
 
-createTopHeaderElement();
-preloadLogin();
-
 let logout = () => {
     localStorage.setItem("SessionOn", "false");
     document.getElementById("account-button").removeEventListener("click", changeAccountStatus);
@@ -164,6 +161,10 @@ let logout = () => {
 let changeAccountStatus = () => document.getElementById("account-options")?.style.display == "inline-block" ? 
     document.getElementById("account-options").style.display = "none" :
     document.getElementById("account-options").style.display = "inline-block";
+
+createTopHeaderElement();
+preloadLogin();
+createTicketListElement();
 
 
 let ticketsControls = document.getElementsByClassName("nextmatches-control")

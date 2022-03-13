@@ -1,5 +1,5 @@
 
-let createTopHeaderElement = () => {
+export let createTopHeaderElement = () => {
     let hrefpages = window.location.href.includes('pages') ? '../pages/' : './pages/';
     let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
     let topheader =
@@ -125,7 +125,7 @@ let createTopHeaderElement = () => {
     document.getElementById("topheader").innerHTML = topheader;
 }
 
-let createAccountElement = (username, firstname, lastname) => {
+export let createAccountElement = (username, firstname, lastname) => {
     let accountElement = 
     `<div id="account-button">
     <p>${username}</p>
@@ -158,7 +158,7 @@ let createAccountElement = (username, firstname, lastname) => {
     return accountElement;
 }
 
-let createLoginElement = () => {
+export let createLoginElement = () => {
     let href = window.location.href.includes('pages') ? '../pages/' : './pages/';
 
     let loginElement = 
@@ -173,4 +173,213 @@ let createLoginElement = () => {
     return loginElement;
 }
 
-export { createTopHeaderElement, createAccountElement, createLoginElement };
+export let createTicketListElement = () => {
+    let hrefpages = window.location.href.includes('pages') ? '../pages/' : './pages/';
+    let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
+    let ticketList =
+    `
+    <button class="nextmatches-control control-prev" type="button">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <div id="nextmatches-carousel-inner" class="d-flex flex-nowrap">
+        <div class="matches__match card">
+            <div class="match__info card-header">
+                <p>October 30th, 2021
+                    <br>21:00 ET
+                    <br>Audi Field, Washington DC
+                </p>
+            </div>
+            <div class="match__teams card-body">
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <p class="team__name">Washington Spirit</p>
+                </div>
+                <p class="vs">vs</p>
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/NCCourage-Logo.png" alt="North Carolina Courage Logo" class="team__logo"></img>
+                    <p class="team__name">North Carolina Courage</p>
+                </div>
+            </div>
+            <div class="match__tickets d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn-danger ticket" disabled>
+                    Buy tickets
+                </button>
+            </div>
+        </div>
+        <div class="matches__match card">
+            <div class="match__info card-header">
+                <p>October 30th, 2021
+                    <br>21:00 ET
+                    <br>Stadium, where
+                </p>
+            </div>
+            <div class="match__teams card-body">
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/HOUSDash-Logo.png" alt="Houston Dash Logo" class="team__logo"></img>
+                    <p class="team__name">Houston Dash</p>
+                </div>
+                <p class="vs">vs</p>
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <p class="team__name">Washington Spirit</p>
+                </div>
+            </div>
+            <div class="match__tickets d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn-danger ticket" disabled>
+                    Buy tickets
+                </button>
+            </div>
+        </div>
+        <div class="matches__match card">
+            <div class="match__info card-header">
+                <p>October 30th, 2021
+                    <br>21:00 ET
+                    <br>Stadium, where
+                </p>
+            </div>
+            <div class="match__teams card-body">
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/PORThorns-Logo.png" alt="Portland Thorns Logo" class="team__logo"></img>
+                    <p class="team__name">Portland Thorns</p>
+                </div>
+                <p class="vs">vs</p>
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <p class="team__name">Washington Spirit</p>
+                </div>
+            </div>
+            <div class="match__tickets d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn-danger ticket" disabled>
+                    Buy tickets
+                </button>
+            </div>
+        </div>
+        <div class="matches__match card">
+            <div class="match__info card-header">
+                <p>October 30th, 2021
+                    <br>21:00 ET
+                    <br>Stadium, where
+                </p>
+            </div>
+            <div class="match__teams card-body">
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/CHIRedStars-Logo.png" alt="Chicago Red Stars Logo" class="team__logo"></img>
+                    <p class="team__name">Chicago Red Stars</p>
+                </div>
+                <p class="vs">vs</p>
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <p class="team__name">Washington Spirit</p>
+                </div>
+            </div>
+            <div class="match__tickets d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn-danger ticket" disabled>
+                    Buy tickets
+                </button>
+            </div>
+        </div>
+        <div class="matches__match card">
+            <div class="match__info card-header">
+                <p>October 30th, 2021
+                    <br>21:00 ET
+                    <br>Audi Field, Washington DC
+                </p>
+            </div>
+            <div class="match__teams card-body">
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <p class="team__name">Washington Spirit</p>
+                </div>
+                <p class="vs">vs</p>
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/ACFC-Logo.png" alt="Angel City FC Logo" class="team__logo"></img>
+                    <p class="team__name">Angel City FC</p>
+                </div>
+            </div>
+            <div class="match__tickets d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn-danger ticket" disabled>
+                    Buy tickets
+                </button>
+            </div>
+        </div>
+        <div class="matches__match card">
+            <div class="match__info card-header">
+                <p>October 30th, 2021
+                    <br>21:00 ET
+                    <br>Audi Field, Washington DC
+                </p>
+            </div>
+            <div class="match__teams card-body">
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <p class="team__name">Washington Spirit</p>
+                </div>
+                <p class="vs">vs</p>
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/LOURacing-Logo.png" alt="Racing Louisville Logo" class="team__logo"></img>
+                    <p class="team__name">Racing Louisville</p>
+                </div>
+            </div>
+            <div class="match__tickets d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn-danger ticket" disabled>
+                    Buy tickets
+                </button>
+            </div>
+        </div>
+        <div class="matches__match card">
+            <div class="match__info card-header">
+                <p>October 30th, 2021
+                    <br>21:00 ET
+                    <br>Stadium, where
+                </p>
+            </div>
+            <div class="match__teams card-body">
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/NCCourage-Logo.png" alt="North Carolina Courage Logo" class="team__logo"></img>
+                    <p class="team__name">North Carolina Courage</p>
+                </div>
+                <p class="vs">vs</p>
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <p class="team__name">Washington Spirit</p>
+                </div>
+            </div>
+            <div class="match__tickets d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn-danger ticket" disabled>
+                    Buy tickets
+                </button>
+            </div>
+        </div>
+        <div class="matches__match card">
+            <div class="match__info card-header">
+                <p>October 30th, 2021
+                    <br>21:00 ET
+                    <br>Lynn's Family Stadium, Louisville
+                </p>
+            </div>
+            <div class="match__teams card-body">
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/LOURacing-Logo.png" alt="Racing Louisville Logo" class="team__logo"></img>
+                    <p class="team__name">Racing Louisville</p>
+                </div>
+                <p class="vs">vs</p>
+                <div class="team d-flex flex-column justify-content-center align-items-center">
+                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <p class="team__name">Washington Spirit</p>
+                </div>
+            </div>
+            <div class="match__tickets d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn-danger ticket" disabled>
+                    Buy tickets
+                </button>
+            </div>
+        </div>
+    </div>
+    <button class="nextmatches-control control-next" type="button">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>`
+
+    document.getElementById("nextmatches-carousel").innerHTML = ticketList;
+}
