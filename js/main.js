@@ -166,3 +166,12 @@ let changeAccountStatus = () => document.getElementById("account-options")?.styl
     document.getElementById("account-options").style.display = "inline-block";
 
 
+let ticketsControls = document.getElementsByClassName("nextmatches-control")
+for (let index = 0; index < ticketsControls.length; index++) {
+    const element = ticketsControls[index];
+    element.addEventListener("click", () => {
+        //https://yogeshchauhan.com/how-to-create-a-horizontal-scroll-on-button-click-using-javascript/
+        let tickets = document.getElementById("nextmatches-carousel-inner");
+        tickets.scrollLeft += element.classList.contains("control-prev") ? -150 : 150
+    })
+}    

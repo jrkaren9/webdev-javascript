@@ -61,40 +61,32 @@
             Matches
  ***********************************/
 
-// Esto fue posible gracias a:   
+// I could do this thanks to 
 // https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6
 
-.nextmatches-carousel {
+#nextmatches-carousel {
     grid-area: matches;
     width: auto;
     height: auto;
-
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 0.5rem;
-
-    // for iOS
-    -webkit-overflow-scrolling: touch;
-
-    &::-webkit-scrollbar {
-        
-        width: 20px;
-
-        &-track {
-            box-shadow: inset 0 0 5px $light-grey; 
-            border-radius: 10px;
-        }
-
-        &-thumb {
-            background: $light-grey; 
-            border-radius: 10px;
-
-            /* Handle on hover */
-            &:hover {
-                box-shadow: inset 0 0 2px $almost-white; 
-            }
-        }
-    } 
+    
+    #nextmatches-carousel-inner {
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0.5rem;
+    
+        // for iOS
+        -webkit-overflow-scrolling: touch;
+    
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;
+    
+        &::-webkit-scrollbar {
+            
+            display: none;
+        } 
+    }
 
     .matches__match {
         flex: 0 0 auto;
@@ -180,10 +172,6 @@
                 right: -1rem;
             }
         }
-    }
-
-    .nextmatches-control {
-        width: 5%;
     }
 }
 

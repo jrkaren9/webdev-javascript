@@ -182,31 +182,26 @@ ul {
 /***********************************
             Matches
  ***********************************/
-.nextmatches-carousel {
+#nextmatches-carousel {
   grid-area: matches;
   width: auto;
   height: auto;
   overflow-x: auto;
   overflow-y: hidden;
+}
+#nextmatches-carousel #nextmatches-carousel-inner {
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 0.5rem;
   -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
 }
-.nextmatches-carousel::-webkit-scrollbar {
-  width: 20px;
+#nextmatches-carousel #nextmatches-carousel-inner::-webkit-scrollbar {
+  display: none;
 }
-.nextmatches-carousel::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #747679;
-  border-radius: 10px;
-}
-.nextmatches-carousel::-webkit-scrollbar-thumb {
-  background: #747679;
-  border-radius: 10px;
-  /* Handle on hover */
-}
-.nextmatches-carousel::-webkit-scrollbar-thumb:hover {
-  box-shadow: inset 0 0 2px #E5E5E5;
-}
-.nextmatches-carousel .matches__match {
+#nextmatches-carousel .matches__match {
   flex: 0 0 auto;
   color: #FFFFFF;
   background-color: #0A1E2C;
@@ -217,25 +212,25 @@ ul {
   display: flex;
   flex-flow: column nowrap;
 }
-.nextmatches-carousel .matches__match .match__info {
+#nextmatches-carousel .matches__match .match__info {
   text-align: center;
   font-size: 0.8rem;
   border-bottom: 0.5px solid #747679;
   border-left: 0.5rem solid #6f0f27;
 }
-.nextmatches-carousel .matches__match .match__teams {
+#nextmatches-carousel .matches__match .match__teams {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
   margin: 1rem 0 0;
 }
-.nextmatches-carousel .matches__match .match__teams .vs {
+#nextmatches-carousel .matches__match .match__teams .vs {
   margin: 0.5rem 0.5rem 30%;
   font-size: 1.5rem;
   font-weight: 800;
 }
-.nextmatches-carousel .matches__match .match__teams .team__name {
+#nextmatches-carousel .matches__match .match__teams .team__name {
   padding-top: 0.5rem;
   max-width: 6rem;
   height: 3rem;
@@ -244,23 +239,23 @@ ul {
   text-align: center;
   text-overflow: ellipsis;
 }
-.nextmatches-carousel .matches__match .match__teams .team__logo {
+#nextmatches-carousel .matches__match .match__teams .team__logo {
   height: 4rem;
   width: 4rem;
 }
-.nextmatches-carousel .matches__match .match__tickets {
+#nextmatches-carousel .matches__match .match__tickets {
   height: 5rem;
   position: relative;
   margin-top: 1rem;
   border-top: 1PX dashed #747679;
 }
-.nextmatches-carousel .matches__match .match__tickets .ticket {
+#nextmatches-carousel .matches__match .match__tickets .ticket {
   height: fit-content;
   margin: 0.5rem 0.5rem;
   width: 90%;
   border-radius: 0;
 }
-.nextmatches-carousel .matches__match .match__tickets:before, .nextmatches-carousel .matches__match .match__tickets:after {
+#nextmatches-carousel .matches__match .match__tickets:before, #nextmatches-carousel .matches__match .match__tickets:after {
   content: "";
   display: block;
   position: absolute;
@@ -270,14 +265,11 @@ ul {
   border-radius: 50%;
   top: -1rem;
 }
-.nextmatches-carousel .matches__match .match__tickets:before {
+#nextmatches-carousel .matches__match .match__tickets:before {
   left: -1rem;
 }
-.nextmatches-carousel .matches__match .match__tickets:after {
+#nextmatches-carousel .matches__match .match__tickets:after {
   right: -1rem;
-}
-.nextmatches-carousel .nextmatches-control {
-  width: 5%;
 }
 
 /***********************************
@@ -324,9 +316,35 @@ ul {
   display: grid;
   grid-template-areas: "banner" "tickets";
 }
-.content-tickets .nextmatches-carousel {
+.content-tickets #nextmatches-carousel {
   grid-area: tickets;
+  position: relative;
   max-height: 23rem;
+}
+.content-tickets #nextmatches-carousel .nextmatches-control {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  background: 0 0;
+  border: 0;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+.content-tickets #nextmatches-carousel .control-prev {
+  left: 0;
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.001));
+}
+.content-tickets #nextmatches-carousel .control-next {
+  right: 0;
+  background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.001));
 }
 
 .news {
