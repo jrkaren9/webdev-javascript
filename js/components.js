@@ -1,3 +1,13 @@
+class Match {
+    constructor(date, location, homeTeam, awayTeam, capacity, availableSeats) {
+        this.date = date;
+        this.location = location;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.capacity = capacity;
+        this.availableSeats = availableSeats;
+    }
+}
 
 export let createTopHeaderElement = () => {
     let hrefpages = window.location.href.includes('pages') ? '../pages/' : './pages/';
@@ -173,40 +183,70 @@ export let createLoginElement = () => {
     return loginElement;
 }
 
-export let createTicketListElement = () => {
-    let hrefpages = window.location.href.includes('pages') ? '../pages/' : './pages/';
+let createTeamInTicket_Element = ( {name, logo}, hrefimg ) => 
+    `<div class="team d-flex flex-column justify-content-center align-items-center">
+        <img src="${hrefimg}Teams/${logo}" alt="${name} Logo" class="team__logo"></img>
+        <p class="team__name">${name}</p>
+    </div>`;
+
+
+
+let createTicket_Element = ( 
+    {
+        date, 
+        location, 
+        homeTeam, 
+        awayTeam,
+    }, hrefimg ) => {
+
+    let homeTeam_Element = createTeamInTicket_Element(homeTeam, hrefimg);
+    let awayTeam_Element = createTeamInTicket_Element(awayTeam, hrefimg);
+
+    let ticket = 
+    `<div class="matches__match card">
+        <div class="match__info card-header">
+            <p>${date}
+                <br>21:00 ET
+                <br>${location}
+            </p>
+        </div>
+        <div class="match__teams card-body">
+            ${homeTeam_Element}
+            <p class="vs">vs</p>
+            ${awayTeam_Element}
+        </div>
+        <div class="match__tickets d-flex justify-content-center align-items-end">
+            <button type="button" class="btn btn-danger ticket" disabled>
+                Buy tickets
+            </button>
+        </div>
+    </div>`
+    return ticket;
+}
+
+
+export let createTicketList_Element = (games) => {
     let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
+
+    let match = 
+        new Match(
+            '2022-10-10', 
+            'Audi Field, DC', 
+            {
+                'name': 'Washington Spirit',
+                'logo': 'WASLogo.png',
+            },
+            {
+                'name': 'North Caroline Courage',
+                'logo': 'NCCLogo.png'
+            }, 2000, 2000);
+
     let ticketList =
-    `
-    <button class="nextmatches-control control-prev" type="button">
+    `<button class="nextmatches-control control-prev" type="button">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
     <div id="nextmatches-carousel-inner" class="d-flex flex-nowrap">
-        <div class="matches__match card">
-            <div class="match__info card-header">
-                <p>October 30th, 2021
-                    <br>21:00 ET
-                    <br>Audi Field, Washington DC
-                </p>
-            </div>
-            <div class="match__teams card-body">
-                <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
-                    <p class="team__name">Washington Spirit</p>
-                </div>
-                <p class="vs">vs</p>
-                <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/NCCourage-Logo.png" alt="North Carolina Courage Logo" class="team__logo"></img>
-                    <p class="team__name">North Carolina Courage</p>
-                </div>
-            </div>
-            <div class="match__tickets d-flex justify-content-center align-items-end">
-                <button type="button" class="btn btn-danger ticket" disabled>
-                    Buy tickets
-                </button>
-            </div>
-        </div>
         <div class="matches__match card">
             <div class="match__info card-header">
                 <p>October 30th, 2021
@@ -221,7 +261,7 @@ export let createTicketListElement = () => {
                 </div>
                 <p class="vs">vs</p>
                 <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <img src="${hrefimg}Teams/WASLogo.png" alt="Washington Spirit Logo" class="team__logo"></img>
                     <p class="team__name">Washington Spirit</p>
                 </div>
             </div>
@@ -245,7 +285,7 @@ export let createTicketListElement = () => {
                 </div>
                 <p class="vs">vs</p>
                 <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <img src="${hrefimg}Teams/WASLogo.png" alt="Washington Spirit Logo" class="team__logo"></img>
                     <p class="team__name">Washington Spirit</p>
                 </div>
             </div>
@@ -269,7 +309,7 @@ export let createTicketListElement = () => {
                 </div>
                 <p class="vs">vs</p>
                 <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <img src="${hrefimg}Teams/WASLogo.png" alt="Washington Spirit Logo" class="team__logo"></img>
                     <p class="team__name">Washington Spirit</p>
                 </div>
             </div>
@@ -288,7 +328,7 @@ export let createTicketListElement = () => {
             </div>
             <div class="match__teams card-body">
                 <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <img src="${hrefimg}Teams/WASLogo.png" alt="Washington Spirit Logo" class="team__logo"></img>
                     <p class="team__name">Washington Spirit</p>
                 </div>
                 <p class="vs">vs</p>
@@ -312,7 +352,7 @@ export let createTicketListElement = () => {
             </div>
             <div class="match__teams card-body">
                 <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <img src="${hrefimg}Teams/WASLogo.png" alt="Washington Spirit Logo" class="team__logo"></img>
                     <p class="team__name">Washington Spirit</p>
                 </div>
                 <p class="vs">vs</p>
@@ -336,12 +376,12 @@ export let createTicketListElement = () => {
             </div>
             <div class="match__teams card-body">
                 <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/NCCourage-Logo.png" alt="North Carolina Courage Logo" class="team__logo"></img>
+                    <img src="${hrefimg}Teams/NCCLogo.png" alt="North Carolina Courage Logo" class="team__logo"></img>
                     <p class="team__name">North Carolina Courage</p>
                 </div>
                 <p class="vs">vs</p>
                 <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <img src="${hrefimg}Teams/WASLogo.png" alt="Washington Spirit Logo" class="team__logo"></img>
                     <p class="team__name">Washington Spirit</p>
                 </div>
             </div>
@@ -365,7 +405,7 @@ export let createTicketListElement = () => {
                 </div>
                 <p class="vs">vs</p>
                 <div class="team d-flex flex-column justify-content-center align-items-center">
-                    <img src="${hrefimg}Teams/WASpirit-Logo.png" alt="Washington Spirit Logo" class="team__logo"></img>
+                    <img src="${hrefimg}Teams/WASLogo.png" alt="Washington Spirit Logo" class="team__logo"></img>
                     <p class="team__name">Washington Spirit</p>
                 </div>
             </div>
@@ -379,7 +419,8 @@ export let createTicketListElement = () => {
     <button class="nextmatches-control control-next" type="button">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
-    </button>`
+    </button>`;
 
     document.getElementById("nextmatches-carousel").innerHTML = ticketList;
+    document.getElementById("nextmatches-carousel-inner").innerHTML += createTicket_Element(match, hrefimg);
 }

@@ -1,5 +1,5 @@
 
-import { createTopHeaderElement, createAccountElement, createLoginElement, createTicketListElement } from './components.js';
+import { createTopHeaderElement, createAccountElement, createLoginElement, createTicketList_Element } from './components.js';
 
 export let userIdInLocalStorage = "userId";
 export let rememberUserInLocalStorage = "rememberUser";
@@ -22,9 +22,9 @@ class User {
 
 export let checkPassword = async (username, password) => {
     let users = await fetch(baseurl + 'users');
-    let userdata = await users.json();
+    let userData = await users.json();
 
-    return userdata.items?.find(user => user.username === username && user.password === password);
+    return userData.items?.find(user => user.username === username && user.password === password);
 }
 
 let validatePassword = 
@@ -109,19 +109,19 @@ let getUsers = async () => {
 
 let findUser = async (username) => {
     let users = await fetch(baseurl + 'users');
-    let userdata = await users.json();
+    let userData = await users.json();
 
-    return userdata.items?.find(user => user.username === username);
+    return userData.items?.find(user => user.username === username);
 }
 
 let findEmail = async (email) => {
     let users = await fetch(baseurl + 'users');
-    let userdata = await users.json();
+    let userData = await users.json();
 
-    return userdata.items?.find(user => user.email === email);
+    return userData.items?.find(user => user.email === email);
 }
 
-export let findUserDataById = async (id) => {
+export let finduserDataById = async (id) => {
     let user = await fetch(baseurl + 'users/' + id);
     
     return await user.json();
@@ -133,7 +133,7 @@ let preloadLogin = async () => {
 
     if(JSON.parse(session) == true) {
         let id = localStorage.getItem("userId");
-        let {username, firstname, lastname} =  await findUserDataById(id);
+        let {username, firstname, lastname} =  await finduserDataById(id);
         element.innerHTML = createAccountElement(username, firstname, lastname);
         
         document.getElementById("account-button")
@@ -164,7 +164,7 @@ let changeAccountStatus = () => document.getElementById("account-options")?.styl
 
 createTopHeaderElement();
 preloadLogin();
-createTicketListElement();
+createTicketList_Element();
 
 
 let ticketsControls = document.getElementsByClassName("nextmatches-control")
@@ -176,3 +176,13 @@ for (let index = 0; index < ticketsControls.length; index++) {
         tickets.scrollLeft += element.classList.contains("control-prev") ? -150 : 150
     })
 }    
+
+
+let getGames = async () => {
+    let games = await fetch(baseurl + 'games');
+    let gamesData = await games.json();
+
+    return gamesData;
+}
+
+await getGames();
