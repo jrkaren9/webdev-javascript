@@ -1,0 +1,92 @@
+[
+ {
+  "id": 1,
+  "date": "2022-10-10",
+  "location": "Audi Field, Washington DC",
+  "homeTeam": {
+   "name": "Washington Spirit",
+   "logo": "WASLogo.png"
+  },
+  "awayTeam": {
+   "name": "NCC Courage",
+   "logo": "NCCLogo.png"
+  },
+  "capacity": 2000,
+  "availableSeats": 2000
+ },
+ {
+  "id": 2,
+  "date": "2022-10-15",
+  "location": "Audi Field, Washington DC",
+  "homeTeam": {
+   "name": "Washington Spirit",
+   "logo": "WASLogo.png"
+  },
+  "awayTeam": {
+   "name": "Houston Dash",
+   "logo": "HOULogo.png"
+  },
+  "capacity": 2000,
+  "availableSeats": 2000
+ },
+ {
+  "id": 3,
+  "date": "2022-10-21",
+  "location": "Segra Field, Washington DC",
+  "homeTeam": {
+   "name": "Washington Spirit",
+   "logo": "WASLogo.png"
+  },
+  "awayTeam": {
+   "name": "Portland Thorns",
+   "logo": "PORLogo.png"
+  },
+  "capacity": 2000,
+  "availableSeats": 2000
+ },
+ {
+  "id": 4,
+  "date": "2022-10-31",
+  "location": "Lynn Family Stadium, Kentucky",
+  "homeTeam": {
+   "name": "Racing Louisville",
+   "logo": "LOULogo.png"
+  },
+  "awayTeam": {
+   "name": "Washington Spirit",
+   "logo": "WASLogo.png"
+  },
+  "capacity": 2000,
+  "availableSeats": 2000
+ },
+ {
+  "id": 5,
+  "date": "2022-11-15",
+  "location": "Lumen Field, Seattle",
+  "homeTeam": {
+   "name": "OL Reign",
+   "logo": "OLRLogo.png"
+  },
+  "awayTeam": {
+   "name": "Washington Spirit",
+   "logo": "WASLogo.png"
+  },
+  "capacity": 2000,
+  "availableSeats": 2000
+ },
+ {
+  "id": 6,
+  "date": "2022-11-23",
+  "location": "Providence Park, Oregon",
+  "homeTeam": {
+   "name": "Portland Thorns",
+   "logo": "PORLogo.png"
+  },
+  "awayTeam": {
+   "name": "Washington Spirit",
+   "logo": "WASLogo.png"
+  },
+  "capacity": 2000,
+  "availableSeats": 2000
+ }
+]

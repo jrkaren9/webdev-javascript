@@ -6,7 +6,6 @@ export let rememberUserInLocalStorage = "rememberUser";
 let UserCart = [];
 export let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
 
-
 let isBlank = (str) => (!str || /^\s*$/.test(str));
 
 class User {
@@ -162,22 +161,6 @@ let changeAccountStatus = () => document.getElementById("account-options")?.styl
     document.getElementById("account-options").style.display = "none" :
     document.getElementById("account-options").style.display = "inline-block";
 
-createTopHeaderElement();
-preloadLogin();
-createTicketList_Element();
-
-
-let ticketsControls = document.getElementsByClassName("nextmatches-control")
-for (let index = 0; index < ticketsControls.length; index++) {
-    const element = ticketsControls[index];
-    element.addEventListener("click", () => {
-        //https://yogeshchauhan.com/how-to-create-a-horizontal-scroll-on-button-click-using-javascript/
-        let tickets = document.getElementById("nextmatches-carousel-inner");
-        tickets.scrollLeft += element.classList.contains("control-prev") ? -150 : 150
-    })
-}    
-
-
 let getGames = async () => {
     let games = await fetch(baseurl + 'games');
     let gamesData = await games.json();
@@ -185,4 +168,24 @@ let getGames = async () => {
     return gamesData;
 }
 
-await getGames();
+createTopHeaderElement();
+preloadLogin();
+
+let games = await getGames();
+createTicketList_Element(games);
+
+let ticketsControls = document.getElementsByClassName("nextmatches-control")
+for (let index = 0; index < ticketsControls.length; index++) {
+    const element = ticketsControls[index];
+    element.addEventListener("click", () => {
+        //https://yogeshchauhan.com/how-to-create-a-horizontal-scroll-on-button-click-using-javascript/
+        let tickets = document.getElementById("nextmatches-carousel-inner");
+        tickets.scrollBy(
+            {
+                left: element.classList.contains("control-prev") ? -150 : 150,
+                top: 0,
+                behavior: 'smooth'
+            }
+        )  
+    })
+}    

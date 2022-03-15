@@ -180,100 +180,6 @@ ul {
 }
 
 /***********************************
-            Matches
- ***********************************/
-#nextmatches-carousel {
-  grid-area: matches;
-  width: auto;
-  height: auto;
-  padding: 1rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-#nextmatches-carousel #nextmatches-carousel-inner {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0 0.5rem;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-}
-#nextmatches-carousel #nextmatches-carousel-inner::-webkit-scrollbar {
-  display: none;
-}
-#nextmatches-carousel .matches__match {
-  flex: 0 0 auto;
-  color: #FFFFFF;
-  background-color: #0A1E2C;
-  vertical-align: top;
-  width: 18rem;
-  margin: 0 0.5rem;
-  padding: 0;
-  display: flex;
-  flex-flow: column nowrap;
-}
-#nextmatches-carousel .matches__match .match__info {
-  text-align: center;
-  font-size: 0.8rem;
-  border-bottom: 0.5px solid #747679;
-  border-left: 0.5rem solid #6f0f27;
-}
-#nextmatches-carousel .matches__match .match__teams {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 1rem 0 0;
-}
-#nextmatches-carousel .matches__match .match__teams .vs {
-  margin: 0 0.5rem;
-  font-size: 1.5rem;
-  height: 4rem;
-  font-weight: 800;
-}
-#nextmatches-carousel .matches__match .match__teams .team__name {
-  padding-top: 0.5rem;
-  max-width: 6rem;
-  height: 3rem;
-  font-size: 0.8rem;
-  overflow: hidden;
-  text-align: center;
-  text-overflow: ellipsis;
-}
-#nextmatches-carousel .matches__match .match__teams .team__logo {
-  height: 4rem;
-  width: 4rem;
-}
-#nextmatches-carousel .matches__match .match__tickets {
-  height: 5rem;
-  position: relative;
-  margin-top: 1rem;
-  border-top: 1PX dashed #747679;
-}
-#nextmatches-carousel .matches__match .match__tickets .ticket {
-  height: fit-content;
-  margin: 0.5rem 0.5rem;
-  border-radius: 0;
-}
-#nextmatches-carousel .matches__match .match__tickets:before, #nextmatches-carousel .matches__match .match__tickets:after {
-  content: "";
-  display: block;
-  position: absolute;
-  height: 2rem;
-  width: 2rem;
-  background-color: #37393E;
-  border-radius: 50%;
-  top: -1rem;
-}
-#nextmatches-carousel .matches__match .match__tickets:before {
-  left: -1rem;
-}
-#nextmatches-carousel .matches__match .match__tickets:after {
-  right: -1rem;
-}
-
-/***********************************
             Posts
  ***********************************/
 .posts {
@@ -318,7 +224,7 @@ ul {
  ***********************************/
 #nextmatches-carousel {
   grid-area: matches;
-  width: auto;
+  overflow-x: auto;
   height: auto;
   padding: 1rem;
   display: flex;
@@ -387,7 +293,7 @@ ul {
 }
 #nextmatches-carousel .matches__match .match__teams .team__name {
   padding-top: 0.5rem;
-  max-width: 6rem;
+  width: 6rem;
   height: 3rem;
   font-size: 0.8rem;
   overflow: hidden;
@@ -426,9 +332,9 @@ ul {
   right: -1rem;
 }
 
-/***********************************
-            Matches
- ***********************************/
+/******************************************************
+            Specific to the tickets page
+ ******************************************************/
 .content-tickets {
   display: grid;
   grid-template-areas: "banner" "tickets";
