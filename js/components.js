@@ -239,9 +239,13 @@ export let createTicketList_Element = (games) => {
         <span class="visually-hidden">Next</span>
     </button>`;
 
-    document.getElementById("nextmatches-carousel").innerHTML = ticketList;
+    let nextMatches = document.getElementById("nextmatches-carousel")
+    if (nextMatches)
+    {
+        nextMatches.innerHTML = ticketList
+        games?.forEach ( game => 
+            document.getElementById("nextmatches-carousel-inner").innerHTML += createTicket_Element(game, hrefimg)   
+        )   
+    }
 
-    games?.forEach ( game => 
-        document.getElementById("nextmatches-carousel-inner").innerHTML += createTicket_Element(game, hrefimg)   
-    )   
 }
