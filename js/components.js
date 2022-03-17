@@ -239,13 +239,15 @@ export let createTicketList_Element = (games) => {
         <span class="visually-hidden">Next</span>
     </button>`;
 
-    let nextMatches = document.getElementById("nextmatches-carousel")
+    let nextMatches = document.getElementById("nextmatches-carousel");
     if (nextMatches)
     {
-        nextMatches.innerHTML = ticketList
+        nextMatches.innerHTML = ticketList;
+        let innerElement = document.getElementById("nextmatches-carousel-inner");
         games?.forEach ( game => 
-            document.getElementById("nextmatches-carousel-inner").innerHTML += createTicket_Element(game, hrefimg)   
+            innerElement.innerHTML += createTicket_Element(game, hrefimg)   
         )   
-    }
 
+        innerElement.firstElementChild.classList.add("first-ticket");
+    }
 }

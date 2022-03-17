@@ -3,8 +3,12 @@
  ***********************************/
  
 #bignew-carousel{
-    height: 40rem;
+    height: 20rem;
     overflow: hidden;
+
+    @media only screen and (min-width: $screen-sm) { 
+        height: 40rem;
+     }   
 
     .carousel-item {
         height: 40rem;
@@ -13,12 +17,11 @@
 
         img {
             object-fit: cover;
-            height: 40rem;
+            height: 20rem;
 
-            @media only screen and (min-width: $screen-lg) { 
-               object-position: 0 40%;  
-            }   
-
+            @media only screen and (min-width: $screen-sm) { 
+                height: 40rem;
+             }   
         }
 
         &__caption {
@@ -93,13 +96,17 @@
             display: flex;
             justify-content: left;
             margin: 5px;
-        }
 
-        .post__image img {
-            object-position: left center;
-            object-fit: cover;
-            width: 100%;
-            height: 20rem;
+            img {
+                object-position: left center;
+                object-fit: cover;
+                width: 100%;
+                height: 15rem;
+
+                @media only screen and (min-width: $screen-sm) { 
+                    height: 20rem;
+                 }   
+            }
         }
     }
 }

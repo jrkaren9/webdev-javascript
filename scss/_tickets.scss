@@ -16,7 +16,6 @@
     #nextmatches-carousel-inner {
         overflow-x: auto;
         overflow-y: hidden;
-        padding: 0 0.5rem;
     
         // for iOS
         -webkit-overflow-scrolling: touch;
@@ -27,6 +26,11 @@
         &::-webkit-scrollbar {
             display: none;
         } 
+
+        .first-ticket {
+            padding-left: 0;
+            margin-left: 0;
+        }
     }
 
     .nextmatches-control {

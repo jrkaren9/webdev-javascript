@@ -139,8 +139,13 @@ ul {
            CAROUSEL Big New
  ***********************************/
 #bignew-carousel {
-  height: 40rem;
+  height: 20rem;
   overflow: hidden;
+}
+@media only screen and (min-width: 576px) {
+  #bignew-carousel {
+    height: 40rem;
+  }
 }
 #bignew-carousel .carousel-item {
   height: 40rem;
@@ -149,11 +154,11 @@ ul {
 }
 #bignew-carousel .carousel-item img {
   object-fit: cover;
-  height: 40rem;
+  height: 20rem;
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 576px) {
   #bignew-carousel .carousel-item img {
-    object-position: 0 40%;
+    height: 40rem;
   }
 }
 #bignew-carousel .carousel-item__caption {
@@ -222,7 +227,12 @@ ul {
   object-position: left center;
   object-fit: cover;
   width: 100%;
-  height: 20rem;
+  height: 15rem;
+}
+@media only screen and (min-width: 576px) {
+  .posts__post .post__image img {
+    height: 20rem;
+  }
 }
 
 /***********************************
@@ -239,7 +249,6 @@ ul {
 #nextmatches-carousel #nextmatches-carousel-inner {
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0 0.5rem;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   /* IE and Edge */
@@ -247,6 +256,10 @@ ul {
 }
 #nextmatches-carousel #nextmatches-carousel-inner::-webkit-scrollbar {
   display: none;
+}
+#nextmatches-carousel #nextmatches-carousel-inner .first-ticket {
+  padding-left: 0;
+  margin-left: 0;
 }
 #nextmatches-carousel .nextmatches-control {
   z-index: 1;
@@ -690,8 +703,8 @@ ul {
   margin: 1vh auto;
 }
 .footercolumn__logo img {
-  min-width: 10rem;
-  max-width: 15rem;
+  min-width: 4rem;
+  max-width: 7rem;
 }
 .footer svg {
   height: 20px;
