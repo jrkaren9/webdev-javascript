@@ -104,10 +104,16 @@ ul {
   line-height: 1.5rem;
   float: right;
   position: absolute;
-  right: 0px;
+  left: 0px;
   z-index: 1;
   display: none;
   min-width: 220px;
+}
+@media only screen and (min-width: 576px) {
+  #account-button #account-options {
+    left: auto;
+    right: 0px;
+  }
 }
 #account-button #account-options .account-header {
   background-color: #FFF;

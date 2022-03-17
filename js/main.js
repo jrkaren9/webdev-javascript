@@ -20,10 +20,14 @@ class User {
 }
 
 export let checkPassword = async (username, password) => {
-    let users = await fetch(baseurl + 'users');
-    let userData = await users.json();
-
-    return userData.items?.find(user => user.username === username && user.password === password);
+    try {
+        let users = await fetch(baseurl + 'users');
+        let userData = await users.json();
+    
+        return userData.items?.find(user => user.username === username && user.password === password);
+    } catch(error) {
+        console.error(error);
+    }
 }
 
 let validatePassword = 
@@ -121,9 +125,13 @@ let findEmail = async (email) => {
 }
 
 export let finduserDataById = async (id) => {
-    let user = await fetch(baseurl + 'users/' + id);
+    try {
+        let user = await fetch(baseurl + 'users/' + id);
+        return await user.json();
+    } catch(error) {
+        console.error(error);
+    }
     
-    return await user.json();
 }
 
 let preloadLogin = async () => {
@@ -138,7 +146,7 @@ let preloadLogin = async () => {
         document.getElementById("account-button")
             .addEventListener("click", changeAccountStatus);
             
-        document.getElementById("signout").addEventListener("click", event => {
+        document.getElementById("logout").addEventListener("click", event => {
             event.preventDefault;
             logout()
         });
@@ -154,7 +162,7 @@ let logout = () => {
     localStorage.setItem("SessionOn", "false");
     document.getElementById("account-button").removeEventListener("click", changeAccountStatus);
     
-    setTimeout(() => document.getElementById("account").innerHTML = createLoginElement(), 500);
+    setTimeout(() => document.getElementById("account").innerHTML = createLoginElement(), 100);
 }
 
 let changeAccountStatus = () => document.getElementById("account-options")?.style.display == "inline-block" ? 
@@ -171,8 +179,10 @@ let getGames = async () => {
 createTopHeaderElement();
 preloadLogin();
 
-let games = await getGames();
-createTicketList_Element(games);
+if (document.getElementById('nextmatches-carousel')) {
+    let games = await getGames();
+    createTicketList_Element(games);
+}
 
 let ticketsControls = document.getElementsByClassName("nextmatches-control")
 for (let index = 0; index < ticketsControls.length; index++) {
@@ -189,3 +199,11 @@ for (let index = 0; index < ticketsControls.length; index++) {
         )  
     })
 }    
+
+window.addEventListener('mouseup', (event) => {
+    let button = document.getElementById('account-button');
+    let options = document.getElementById('account-options');
+    if(event.target != button && event.target.parentNode != button && options){
+        options.style.display = 'none';
+    }
+}); 

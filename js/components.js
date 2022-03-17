@@ -157,8 +157,8 @@ export let createAccountElement = (username, firstname, lastname) => {
                 <li>
                     <a>Help</a>
                 </li>
-                <li>
-                    <a id="signout">Sign Out</a>
+                <li id="logout">
+                    <a>Sign Out</a>
                 </li>
             </ul>
         </div>
