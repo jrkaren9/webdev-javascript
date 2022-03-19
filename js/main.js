@@ -170,7 +170,7 @@ let changeAccountStatus = () => document.getElementById("account-options")?.styl
     document.getElementById("account-options").style.display = "inline-block";
 
 let getGames = async () => {
-    let games = await fetch(baseurl + 'games');
+    let games = await fetch('../gamesDB.json');
     let gamesData = await games.json();
 
     return gamesData;
