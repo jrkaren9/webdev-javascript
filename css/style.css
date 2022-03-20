@@ -88,6 +88,22 @@ ul {
   display: none;
 }
 
+.btn {
+  border-radius: 0;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 #account-button {
   color: white;
   padding: 0 0.6rem;
@@ -332,7 +348,6 @@ ul {
 #nextmatches-carousel .matches__match .match__tickets .ticket {
   height: fit-content;
   margin: 0.5rem 0.5rem;
-  border-radius: 0;
 }
 #nextmatches-carousel .matches__match .match__tickets:before, #nextmatches-carousel .matches__match .match__tickets:after {
   content: "";
@@ -713,6 +728,58 @@ ul {
 .footer .copyright {
   text-align: center;
   font-size: 0.7rem;
+}
+
+#add-items {
+  padding: 1rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  z-index: 2000;
+  background-color: #E5E5E5;
+}
+@media only screen and (min-width: 576px) {
+  #add-items {
+    width: 15rem;
+  }
+}
+#add-items .row-space {
+  padding-top: 1rem;
+}
+#add-items .input-group {
+  padding: 0;
+}
+#add-items #number-input {
+  border: solid #0A1E2C;
+  border-width: 2px 0;
+  height: 2rem;
+  text-align: center;
+}
+#add-items .button-count {
+  background: #fff;
+  cursor: pointer;
+  border: 2px solid #0A1E2C;
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+}
+#add-items .button-count:hover {
+  background-color: #0A1E2C;
+  transition: 0.2s;
+  color: #FFF;
+}
+#add-items .input-group-text {
+  background-color: #0A1E2C;
+  color: #FFF;
+}
+#add-items .btn {
+  width: auto;
+}
+#add-items .btn.cancel {
+  background-color: #0A1E2C;
+  color: #FFF;
 }
 
 /*# sourceMappingURL=style.css.map */

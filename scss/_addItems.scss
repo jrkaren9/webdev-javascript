@@ -1,0 +1,61 @@
+#add-items {
+    padding: 1rem;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 80%;
+    z-index: 2000;
+    background-color: $almost-white;
+
+    @media only screen and (min-width: $screen-sm) { 
+        width: 15rem;
+    }  
+
+    .row-space {
+        padding-top: 1rem;
+    }
+
+    .input-group {
+        padding: 0;
+    }
+
+    #number-input {
+        border: solid $dark-blue;
+        border-width: 2px 0;
+        height: 2rem;
+        text-align: center;
+    }
+
+    .button-count {
+        background: #fff;
+        cursor: pointer;
+
+        border: 2px solid $dark-blue;
+        font-size: 2rem;
+        height: 2rem;
+        width: 2rem;
+
+      }
+      
+    .button-count:hover {
+        background-color: $dark-blue;
+        transition: 0.2s;
+        color: #FFF;
+    }
+
+    .input-group-text {
+        background-color: $dark-blue;
+        color: #FFF;
+    }
+
+    .btn {
+        width: auto;
+        &.cancel {
+            background-color: $dark-blue;
+            color: #FFF;
+        }
+    }
+}

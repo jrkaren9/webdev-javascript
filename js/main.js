@@ -126,8 +126,16 @@ let findEmail = async (email) => {
 
 export let finduserDataById = async (id) => {
     try {
-        let user = await fetch(baseurl + 'users/' + id);
-        return await user.json();
+        await fetch(baseurl + 'users/' + id)
+            .then(response => {
+                if(response.ok) {
+                    return response.json(); 
+                } else if (response.status === 404){
+                    return Promise.reject("Error 404");
+                } else {
+                    return Promise.reject('Other error: ' + response.status)
+                }
+            })
     } catch(error) {
         console.error(error);
     }
@@ -140,16 +148,31 @@ let preloadLogin = async () => {
 
     if(JSON.parse(session) == true) {
         let id = localStorage.getItem("userId");
-        let {username, firstname, lastname} =  await finduserDataById(id);
-        element.innerHTML = createAccountElement(username, firstname, lastname);
-        
-        document.getElementById("account-button")
-            .addEventListener("click", changeAccountStatus);
+
+        try {
+            let {username, firstname, lastname} =  await finduserDataById(id);
+            element.innerHTML = createAccountElement(username, firstname, lastname);
             
-        document.getElementById("logout").addEventListener("click", event => {
-            event.preventDefault;
-            logout()
-        });
+            document.getElementById("account-button")
+                .addEventListener("click", changeAccountStatus);
+                
+            document.getElementById("logout").addEventListener("click", event => {
+                event.preventDefault;
+                logout()
+            });
+            
+            window.addEventListener('mouseup', (event) => {
+                let button = document.getElementById('account-button');
+                let options = document.getElementById('account-options');
+                if(event.target != button && event.target.parentNode != button && options){
+                    options.style.display = 'none';
+                }
+            }); 
+
+        } catch (error) {
+            console.error(error);
+            element.innerHTML = createLoginElement();
+        }
     }
     /**Load the login and signin options */
     else  
@@ -158,6 +181,9 @@ let preloadLogin = async () => {
     }
 }
 
+/**
+ * Changes the Login Element to show the options for login and signin again
+ */
 let logout = () => {
     localStorage.setItem("SessionOn", "false");
     document.getElementById("account-button").removeEventListener("click", changeAccountStatus);
@@ -165,10 +191,19 @@ let logout = () => {
     setTimeout(() => document.getElementById("account").innerHTML = createLoginElement(), 100);
 }
 
+/**
+ * 
+ * @returns A change in the display status of the account-options element
+ */
 let changeAccountStatus = () => document.getElementById("account-options")?.style.display == "inline-block" ? 
     document.getElementById("account-options").style.display = "none" :
     document.getElementById("account-options").style.display = "inline-block";
 
+/**
+ * Method to obtain the games scheduled for the team, from the "database"
+ * @see completeGamesComponent uses this method when there's a "carousel" for the next matches
+ * @returns gamesData 
+ */
 let getGames = async () => {
     let games = await fetch('../gamesDB.json');
     let gamesData = await games.json();
@@ -179,31 +214,30 @@ let getGames = async () => {
 createTopHeaderElement();
 preloadLogin();
 
-if (document.getElementById('nextmatches-carousel')) {
-    let games = await getGames();
-    createTicketList_Element(games);
+/**
+ * Fills the component to give the user the ability to buy tickets for matches
+ */
+let completeGamesComponent = async () => {
+    if (document.getElementById('nextmatches-carousel')) {
+        let games = await getGames();
+        createTicketList_Element(games);
+
+        let ticketsControls = document.getElementsByClassName("nextmatches-control")
+        for (let index = 0; index < ticketsControls.length; index++) {
+            const element = ticketsControls[index];
+            element.addEventListener("click", () => {
+                //https://yogeshchauhan.com/how-to-create-a-horizontal-scroll-on-button-click-using-javascript/
+                let tickets = document.getElementById("nextmatches-carousel-inner");
+                tickets.scrollBy(
+                    {
+                        left: element.classList.contains("control-prev") ? -150 : 150,
+                        top: 0,
+                        behavior: 'smooth'
+                    }
+                )  
+            })
+        }    
+    }
 }
 
-let ticketsControls = document.getElementsByClassName("nextmatches-control")
-for (let index = 0; index < ticketsControls.length; index++) {
-    const element = ticketsControls[index];
-    element.addEventListener("click", () => {
-        //https://yogeshchauhan.com/how-to-create-a-horizontal-scroll-on-button-click-using-javascript/
-        let tickets = document.getElementById("nextmatches-carousel-inner");
-        tickets.scrollBy(
-            {
-                left: element.classList.contains("control-prev") ? -150 : 150,
-                top: 0,
-                behavior: 'smooth'
-            }
-        )  
-    })
-}    
-
-window.addEventListener('mouseup', (event) => {
-    let button = document.getElementById('account-button');
-    let options = document.getElementById('account-options');
-    if(event.target != button && event.target.parentNode != button && options){
-        options.style.display = 'none';
-    }
-}); 
+completeGamesComponent();

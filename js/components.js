@@ -34,8 +34,9 @@ export let createTopHeaderElement = () => {
                 <form class="d-flex justify-content-end">
                     <input class="form-control me-2 d-none d-sm-block outline-white" type="search" placeholder="Search"
                         aria-label="Search">
-                    <button class="btn btn-outline-success outline-white btn-red" type="submit" title="Search"><i
-                            class="fa fa-search"></i></button>
+                    <button class="btn btn-outline-success outline-white btn-red" type="submit" title="Search">
+                        <i class="fa fa-search"></i>
+                    </button>
                 </form>
             </div>
     
@@ -200,7 +201,7 @@ let createTicket_Element = (
 
     let homeTeam_Element = createTeamInTicket_Element(homeTeam, hrefimg);
     let awayTeam_Element = createTeamInTicket_Element(awayTeam, hrefimg);
-
+    let buyTicket = homeTeam.name == "Washington Spirit" ? "" : "disabled" 
     let ticket = 
     `<div class="matches__match card">
         <div class="match__info card-header">
@@ -215,7 +216,7 @@ let createTicket_Element = (
             ${awayTeam_Element}
         </div>
         <div class="match__tickets d-flex justify-content-center align-items-end">
-            <button type="button" class="btn btn-danger ticket" disabled>
+            <button type="button" class="btn btn-danger ticket" ${buyTicket}>
                 Buy tickets
             </button>
         </div>
@@ -251,3 +252,85 @@ export let createTicketList_Element = (games) => {
         innerElement.firstElementChild.classList.add("first-ticket");
     }
 }
+
+export let createBuyTicket_Element = (id, date, homeTeam, awayTeam) => {
+    let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
+
+    let buyPopup = 
+    `<div id="add-items" class="d-flex flex-column justify-content-center align-items-center">
+    <form class="add-items__container container-fluid">
+
+        <div class="row mb-3">
+            <div>
+                <p>Tickets for match: </p>
+                <p>${date}</p>
+                <p>${homeTeam.name} vs ${awayTeam.name}</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="input-group mb-3">
+                <label class="input-group-text col-5" for="inputs-type-seats">Seats</label>
+                <select class="form-select col-5 col-sm-7" aria-label="Seats to buy">
+                    <option selected value="Account issues">A1</option>
+                    <option value="Shop issues">A2</option>
+                    <option value="Contacting PR">B1</option>
+                    <option value="Contacting Media">B2</option>
+                </select>
+            </div>                            
+        </div>
+
+        <div class="row mb-3 justify-content-center">
+            <button type="button" class="button-count plus d-flex align-items-center justify-content-center col-1">
+                -
+            </button>
+            <input id="number-input" type="number" min="0" max="100" value="1" class="col-4">
+            <button type="button" class="button-count minus d-flex align-items-center justify-content-center outline-white col-1">
+                +
+            </button>
+        </div>
+    
+        <div class="row justify-content-evenly">
+            <button type="submit" class="btn add btn-success col-10 col-sm-8 col-md-6">Add to car</button>
+            <button type="button" class="btn cancel outline-white col-10 col-sm-3" onclick="closeForm()">Cancel</button>
+        </div>
+    </form>
+    </div>`
+}
+
+
+{/* <div id="add-items" class="d-flex flex-column justify-content-center align-items-center">
+<form class="add-items__container container-fluid">
+
+    <div class="row mb-3">
+        <div>Tickets for match: </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="input-group mb-3">
+            <label class="input-group-text col-5" for="inputs-type-seats">Seats</label>
+            <select class="form-select col-5 col-sm-7" aria-label="Seats to buy">
+                <option selected value="Account issues">A1</option>
+                <option value="Shop issues">A2</option>
+                <option value="Contacting PR">B1</option>
+                <option value="Contacting Media">B2</option>
+            </select>
+        </div>                            
+    </div>
+
+    <div class="row mb-3 justify-content-center">
+        <button type="button" class="button-count plus d-flex align-items-center justify-content-center col-1">
+            -
+        </button>
+        <input id="number-input" type="number" min="0" max="100" value="1" class="col-4">
+        <button type="button" class="button-count minus d-flex align-items-center justify-content-center outline-white col-1">
+            +
+        </button>
+    </div>
+
+    <div class="row justify-content-evenly">
+        <button type="submit" class="btn add btn-success col-10 col-sm-8 col-md-6">Add to car</button>
+        <button type="button" class="btn cancel outline-white col-10 col-sm-3" onclick="closeForm()">Cancel</button>
+    </div>
+</form>
+</div> */}
