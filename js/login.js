@@ -66,7 +66,7 @@ let fillLogin = async () => {
     {
         try {
             
-            let {username, password} = await main.finduserDataById(userId)
+            let {username, password} = await main.finduserDataById(userId);
             document.getElementById("usernameLogin").value = username, document.getElementById("passwordLogin").value = password;
             document.getElementById("rememberUser").checked = rememberUser;
 

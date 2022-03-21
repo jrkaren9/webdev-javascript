@@ -335,7 +335,16 @@ export let createLoginElement = () => {
 
 let addToCar = (type, amount) => {
     if(amount > 0) {
-        console.log("add " + amount + " in " + type);
+        Toastify({
+            text: "You added " +  + amount + " in section " + type + " for the match x",
+            selector: "content-index",
+            duration: 4000,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: false, // Prevents dismissing of toast on hover
+            className: "user-created",
+            callback: function(){} // Callback after click
+        }).showToast();
     }
 }
 
@@ -443,6 +452,7 @@ let createBuyTicket_Element = (
     for (let index = 0;  index < counts.length; index++) {
         const button = counts[index];
         button.addEventListener("click", (event) => {
+            event.preventDefault();
             let amount = document.getElementById("number-input");
             let prev = parseInt(amount.value);
             amount.value = button.classList.contains("plus") ? 

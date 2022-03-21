@@ -126,16 +126,19 @@ let findEmail = async (email) => {
 
 export let finduserDataById = async (id) => {
     try {
+        let user =
         await fetch(baseurl + 'users/' + id)
-            .then(response => {
+            .then(async response => {
                 if(response.ok) {
-                    return response.json(); 
+                  return await response.json();
                 } else if (response.status === 404){
                     return Promise.reject("Error 404");
                 } else {
                     return Promise.reject('Other error: ' + response.status)
                 }
             })
+            
+        return user;
     } catch(error) {
         console.error(error);
     }
