@@ -207,24 +207,25 @@ let createTicket_Element = (
     let homeTeam_Element = createTeamInTicket_Element(homeTeam, hrefimg);
     let awayTeam_Element = createTeamInTicket_Element(awayTeam, hrefimg);
     let buyTicket = homeTeam.name == "Washington Spirit" ? "" : "disabled" 
-    let ticket = 
-    `<div class="matches__match card">
-        <div class="match__info card-header">
-            <p>${date}
-                <br>21:00 ET
-                <br>${location}
-            </p>
-        </div>
-        <div class="match__teams card-body">
-            ${homeTeam_Element}
-            <p class="vs">vs</p>
-            ${awayTeam_Element}
-        </div>
-        <div class="match__tickets d-flex justify-content-center align-items-end">
-            <button type="button" class="btn btn-danger ticket id${id}" ${buyTicket}>
-                Buy tickets
-            </button>
-        </div>
+    let ticket = document.createElement("div");
+    ticket.classList.add("matches__match", "card");
+
+    ticket.innerHTML = 
+    `<div class="match__info card-header">
+        <p>${date}
+            <br>21:00 ET
+            <br>${location}
+        </p>
+    </div>
+    <div class="match__teams card-body">
+        ${homeTeam_Element}
+        <p class="vs">vs</p>
+        ${awayTeam_Element}
+    </div>
+    <div class="match__tickets d-flex justify-content-center align-items-end">
+        <button type="button" class="btn btn-danger ticket id${id}" ${buyTicket}>
+            Buy tickets
+        </button>
     </div>`
     return ticket;
 }
@@ -241,9 +242,12 @@ let createBuyTicket_Element = (
     let homeTeam_Element = createTeamInTicket_Element(homeTeam, hrefimg);
     let awayTeam_Element = createTeamInTicket_Element(awayTeam, hrefimg);
 
+    let div = document.createElement("div");
+    div.id = "add-items";
+    div.classList.add("d-flex", "flex-column", "justify-content-center" , "align-items-center");
+
     let buyPopup = 
-    `<div id="add-items" class="d-flex flex-column justify-content-center align-items-center">
-    <form id="add-items__container" class="container-fluid">
+    `<form id="add-items__container" class="container-fluid">
 
         <div class="row mb-3">
             <div class="center-text">
@@ -280,12 +284,12 @@ let createBuyTicket_Element = (
     
         <div class="row justify-content-evenly">
             <button type="submit" class="btn add btn-success col-10 col-sm-8 col-md-6">Add to car</button>
-            <button type="button" class="btn cancel outline-white col-10 col-sm-3">Cancel</button>
+            <button type="button" id="cancel-buy" class="btn cancel outline-white col-10 col-sm-3">Cancel</button>
         </div>
-    </form>
-    </div>`
+    </form>`
 
-    document.getElementsByClassName("content")[0].innerHTML += buyPopup;
+    div.innerHTML = buyPopup;
+    document.getElementsByClassName("content")[0].appendChild(div);
 
     let counts = document.getElementsByClassName("button-count");
     for (let index = 0;  index < counts.length; index++) {
@@ -301,8 +305,14 @@ let createBuyTicket_Element = (
         event.preventDefault();
         addToCar(
             document.querySelectorAll(".form-select")[0].value,
-            document.getElementById("number-input").value);
+            document.getElementById("number-input").value
+        );
     });
+
+    document.getElementById("cancel-buy").addEventListener("click", (event) => {
+        event.preventDefault();
+        document.getElementById("add-items").remove();
+    })
 }
 
 
@@ -327,18 +337,33 @@ export let createTicketList_Element = (games) => {
         nextMatches.innerHTML = ticketList;
         let innerElement = document.getElementById("nextmatches-carousel-inner");
         games?.forEach ( game => {
-            innerElement.innerHTML += createTicket_Element(game, hrefimg);   
-        })   
-
-        innerElement.firstElementChild.classList.add("first-ticket");
-
-        // for some reason, if I do it in the previous forEach it doesn't work
-        games?.forEach ( game => {
+            innerElement.appendChild(createTicket_Element(game, hrefimg));
+            // for some reason, if I do it in the previous forEach it doesn't work 
+            // NOW I KNOW and I will put it back in the loop
+            // games?.forEach ( game => {})
             innerElement.querySelectorAll(".btn.ticket.id"+game.id+":not([disabled])")[0]
             ?.addEventListener("click", (event) => {
                 event.preventDefault(); 
                 createBuyTicket_Element(game);
             });
-        })
+        })   
+
+        innerElement.firstElementChild.classList.add("first-ticket");
+
+        let ticketsControls = document.getElementsByClassName("nextmatches-control")
+        for (let index = 0; index < ticketsControls.length; index++) {
+            const element = ticketsControls[index];
+            element.addEventListener("click", () => {
+                //https://yogeshchauhan.com/how-to-create-a-horizontal-scroll-on-button-click-using-javascript/
+                let tickets = document.getElementById("nextmatches-carousel-inner");
+                tickets.scrollBy(
+                    {
+                        left: element.classList.contains("control-prev") ? -150 : 150,
+                        top: 0,
+                        behavior: 'smooth'
+                    }
+                )  
+            })
+        }    
     }
 }
