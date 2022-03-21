@@ -1,5 +1,5 @@
 
-import { createTopHeaderElement, createAccountElement, createLoginElement, createTicketList_Element } from './components.js';
+import { createTopHeaderElement, createFooterElement, createAccountElement, createLoginElement, createTicketListElement } from './components.js';
 
 export let userIdInLocalStorage = "userId";
 export let rememberUserInLocalStorage = "rememberUser";
@@ -199,20 +199,26 @@ let changeAccountStatus = () => document.getElementById("account-options")?.styl
     document.getElementById("account-options").style.display = "none" :
     document.getElementById("account-options").style.display = "inline-block";
 
+createTopHeaderElement();
+createFooterElement();
+preloadLogin();
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////// Games //////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Method to obtain the games scheduled for the team, from the "database"
  * @see completeGamesComponent uses this method when there's a "carousel" for the next matches
  * @returns gamesData 
  */
-let getGames = async () => {
+ let getGames = async () => {
     let games = await fetch('../gamesDB.json');
     let gamesData = await games.json();
 
     return gamesData;
 }
-
-createTopHeaderElement();
-preloadLogin();
 
 /**
  * Fills the component to give the user the ability to buy tickets for matches
@@ -220,23 +226,7 @@ preloadLogin();
 let completeGamesComponent = async () => {
     if (document.getElementById('nextmatches-carousel')) {
         let games = await getGames();
-        createTicketList_Element(games);
-
-        let ticketsControls = document.getElementsByClassName("nextmatches-control")
-        for (let index = 0; index < ticketsControls.length; index++) {
-            const element = ticketsControls[index];
-            element.addEventListener("click", () => {
-                //https://yogeshchauhan.com/how-to-create-a-horizontal-scroll-on-button-click-using-javascript/
-                let tickets = document.getElementById("nextmatches-carousel-inner");
-                tickets.scrollBy(
-                    {
-                        left: element.classList.contains("control-prev") ? -150 : 150,
-                        top: 0,
-                        behavior: 'smooth'
-                    }
-                )  
-            })
-        }    
+        createTicketListElement(games);
     }
 }
 

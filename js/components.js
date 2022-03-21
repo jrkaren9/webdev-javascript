@@ -9,13 +9,14 @@ class Match {
     }
 }
 
-let addToCar = (type, amount) => {
-    console.log("add " + amount + " in " + type);
-}
+let hrefpages = window.location.href.includes('pages') ? '../pages/' : './pages/';
+let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////// Elements for TopHeader /////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export let createTopHeaderElement = () => {
-    let hrefpages = window.location.href.includes('pages') ? '../pages/' : './pages/';
-    let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
     let topheader =
     `<div class="logo_team row-wrap d-none d-lg-block">
         <img src="${hrefimg}washington_spirit_crest.png" alt="Team logo" width="180">
@@ -140,6 +141,147 @@ export let createTopHeaderElement = () => {
     document.getElementById("topheader").innerHTML = topheader;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////// Elements for Footer ////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export let createFooterElement = () => {
+    let footer = document.createElement("footer");
+    footer.classList.add("footer");
+
+    footer.innerHTML = 
+    `<div class="footer__lines">
+        <hr class="footer__lines-1">
+        <hr class="footer__lines-2">
+        <hr class="footer__lines-3">
+    </div>
+
+    <div class="container-fluid">
+        <div class="footer__column-list row align-items-center">
+
+            <div class="footercolumn__logo col-12 col-sm-4 col-md-2 d-flex justify-content-center align-items-center">
+                <img src="${hrefimg}washington_spirit_crest.png" alt="Team logo">
+            </div>   
+            
+            <div class="col-12 col-sm-8 col-md-10 container-fluid">
+                <div class="row">
+
+                    <div class="footer__column col-2">
+                        <h5 class="footer__text">BUY</h5>
+                        <ul class="footer__list">
+                            <li>
+                                <a href="${hrefpages}tickets.html">TICKETS</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}store.html" class="disabled">JERSEYS</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}store.html" class="disabled">CLOTHES</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}store.html" class="disabled">OTHER ITEMS</a>
+                            </li> 
+                        </ul>
+                    </div>
+                    <div class="footer__column col-2">
+                        <h5 class="footer__text">TEAM</h5>
+                        <ul class="footer__list">
+                            <li>
+                                <a href="${hrefpages}team.html" class="disabled">STATS</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}team.html" class="disabled">ROSTER</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}team.html" class="disabled">STAFF</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}team.html" class="disabled">FACILITIES</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__column col-2">
+                        <h5 class="footer__text">NEWS</h5>
+                        <ul class="footer__list">
+                            <li>
+                                <a href="${hrefpages}news.html">STANDINGS</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}news.html">PREVIOUS GAMES</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}news.html">PRESS RELEASES</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}news.html">OTHER NEWS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__column col-2">
+                        <h5 class="footer__text">MEDIA</h5>
+                        <ul class="footer__list">
+                            <li>
+                                <a href="${hrefpages}media.html" class="disabled">MEDIA CONTACTS</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}media.html" class="disabled">MEDIA RESOURCES</a>
+                            </li>
+                            <li>
+                                <a href="${hrefpages}media.html" class="disabled">MAILING LIST</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__column col-2">
+                        <h5 class="footer__text">CONTACT</h5>
+                        <ul class="footer__list">
+                            <li>
+                                <a href="${hrefpages}contact.html">JOBS</a>
+                            </li>
+                            <li>
+                                <p>email@teamemail.com</p>
+                            </li>
+                            <li>
+                                <p>Team address, number <br>
+                                City, State, Postal Code</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__column col-2">
+                        <h5 class="footer__text">SOCIAL MEDIA</h5>
+                        <ul class="socialmedia row-wrap">
+                            <li>
+                                <a href="https://www.instagram.com/"><img src="${hrefimg}instagram-icon.svg" alt="Instagram logo" width="30"></a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/home"><img src="${hrefimg}twitter-icon.svg" alt="Twitter logo" width="30"></a>
+                            </li>
+                            <li>
+                                <a href="https://tiktok.com/"><img src="${hrefimg}tiktok-icon.svg" alt="TikTok logo" width="30"></a>
+                            </li>
+                            <li>
+                                <a href="https://youtube.com/"><img src="${hrefimg}youtube-icon.svg" alt="TikTok logo" width="30"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/"><img src="${hrefimg}facebook-icon.svg" alt="Facebook logo" width="30"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright footer__text">
+                <p>Copyright © 2021 Washington Spirit LLC All Rights Reserved Privacy Policy</p>
+            </div>
+        </div>
+    </div>`
+
+    document.getElementsByTagName("body")[0].appendChild(footer);
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////// Elements for Login /////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export let createAccountElement = (username, firstname, lastname) => {
     let accountElement = 
     `<div id="account-button">
@@ -174,26 +316,34 @@ export let createAccountElement = (username, firstname, lastname) => {
 }
 
 export let createLoginElement = () => {
-    let href = window.location.href.includes('pages') ? '../pages/' : './pages/';
 
     let loginElement = 
     `<div class="header__searchitem search__login d-flex justify-content-end">
-        <a href="${href}login.html">Log in</a>
+        <a href="${hrefpages}login.html">Log in</a>
     </div>
     <div class="vertical-line">|</div>
     <div class="header__searchitem search__signin">
-        <a href="${href}signin.html">Sign in</a>
+        <a href="${hrefpages}signin.html">Sign in</a>
     </div>`;
 
     return loginElement;
 }
 
-let createTeamInTicket_Element = ( {name, logo}, hrefimg ) => 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////// Elements for Tickets ///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+let addToCar = (type, amount) => {
+    if(amount > 0) {
+        console.log("add " + amount + " in " + type);
+    }
+}
+
+let createTeamInTicket_Element = ( {name, logo} ) => 
     `<div class="team d-flex flex-column justify-content-center align-items-center">
         <img src="${hrefimg}Teams/${logo}" alt="${name} Logo" class="team__logo"></img>
         <p class="team__name">${name}</p>
     </div>`;
-
 
 let createTicket_Element = ( 
     {
@@ -202,10 +352,10 @@ let createTicket_Element = (
         location, 
         homeTeam, 
         awayTeam,
-    }, hrefimg ) => {
+    } ) => {
 
-    let homeTeam_Element = createTeamInTicket_Element(homeTeam, hrefimg);
-    let awayTeam_Element = createTeamInTicket_Element(awayTeam, hrefimg);
+    let homeTeam_Element = createTeamInTicket_Element(homeTeam);
+    let awayTeam_Element = createTeamInTicket_Element(awayTeam);
     let buyTicket = homeTeam.name == "Washington Spirit" ? "" : "disabled" 
     let ticket = document.createElement("div");
     ticket.classList.add("matches__match", "card");
@@ -237,10 +387,8 @@ let createBuyTicket_Element = (
         homeTeam, 
         awayTeam
     }) => {
-
-    let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
-    let homeTeam_Element = createTeamInTicket_Element(homeTeam, hrefimg);
-    let awayTeam_Element = createTeamInTicket_Element(awayTeam, hrefimg);
+    let homeTeam_Element = createTeamInTicket_Element(homeTeam);
+    let awayTeam_Element = createTeamInTicket_Element(awayTeam);
 
     let div = document.createElement("div");
     div.id = "add-items";
@@ -295,9 +443,14 @@ let createBuyTicket_Element = (
     for (let index = 0;  index < counts.length; index++) {
         const button = counts[index];
         button.addEventListener("click", (event) => {
-            let prev = parseInt(document.getElementById("number-input").value);
-            document.getElementById("number-input").value = button.classList.contains("plus") ? 
+            let amount = document.getElementById("number-input");
+            let prev = parseInt(amount.value);
+            amount.value = button.classList.contains("plus") ? 
                 prev+1 : prev-1 >= 0 ? prev-1 : 0;
+
+            amount.value > 0 ? 
+                document.querySelectorAll("button.btn.add")[0].removeAttribute("disabled")
+                : document.querySelectorAll("button.btn.add")[0].setAttribute("disabled", "");
         });
     }
 
@@ -307,6 +460,10 @@ let createBuyTicket_Element = (
             document.querySelectorAll(".form-select")[0].value,
             document.getElementById("number-input").value
         );
+
+        setTimeout(() => {
+            document.querySelectorAll("button.btn.add")[0].blur();
+        }, 300); 
     });
 
     document.getElementById("cancel-buy").addEventListener("click", (event) => {
@@ -315,9 +472,7 @@ let createBuyTicket_Element = (
     })
 }
 
-
-export let createTicketList_Element = (games) => {
-    let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
+export let createTicketListElement = (games) => {
 
     let ticketList =
     `<button class="nextmatches-control control-prev" type="button">
@@ -337,7 +492,7 @@ export let createTicketList_Element = (games) => {
         nextMatches.innerHTML = ticketList;
         let innerElement = document.getElementById("nextmatches-carousel-inner");
         games?.forEach ( game => {
-            innerElement.appendChild(createTicket_Element(game, hrefimg));
+            innerElement.appendChild(createTicket_Element(game));
             // for some reason, if I do it in the previous forEach it doesn't work 
             // NOW I KNOW and I will put it back in the loop
             // games?.forEach ( game => {})

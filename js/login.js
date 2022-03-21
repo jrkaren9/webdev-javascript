@@ -25,7 +25,7 @@ let login = async (event) => {
 let unsuccesfulLogin = (element) => {
     let help = element.getAttribute("aria-describedby");
     let helpMessage = document.getElementById(help);
-    changeRequiredStatus(element, helpMessage, "invalid-user");
+    main.changeRequiredStatus(element, helpMessage, "invalid-user");
 }
 
 /**
@@ -55,11 +55,9 @@ let successfulLogin = (user) => {
     setTimeout(() => window.location.replace("../index.html"), 1500);
 }
 
-let button = document.getElementsByClassName("submit-button");
-if(button.length === 1) {
-    button[0].addEventListener("click", (event) => login(event)) 
-}
-
+/**
+ * If the user selected to be remembered, the fields are filled automatically
+ */
 let fillLogin = async () => {
     let rememberUser = JSON.parse(localStorage.getItem(main.rememberUserInLocalStorage));
     let userId = localStorage.getItem(main.userIdInLocalStorage);
@@ -67,14 +65,18 @@ let fillLogin = async () => {
     if(rememberUser == true && userId)
     {
         try {
+            
             let {username, password} = await main.finduserDataById(userId)
+            document.getElementById("usernameLogin").value = username, document.getElementById("passwordLogin").value = password;
+            document.getElementById("rememberUser").checked = rememberUser;
 
-        document.getElementById("usernameLogin").value = username, document.getElementById("passwordLogin").value = password;
-        document.getElementById("rememberUser").checked = rememberUser;
         } catch(error) {
             console.log(error);
         }
     }
 }
+
+
+document.getElementById("form-login")?.addEventListener("submit", (event) => login(event)) 
 
 fillLogin();

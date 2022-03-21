@@ -609,7 +609,13 @@
   color: #FFFFFF;
 }
 .footercolumn__logo {
-  margin: 1vh auto;
+  margin: 1vh 2px;
+  padding: 0;
+}
+@media only screen and (min-width: 768px) {
+  .footercolumn__logo {
+    margin: 1vh auto;
+  }
 }
 .footercolumn__logo img {
   min-width: 4rem;
