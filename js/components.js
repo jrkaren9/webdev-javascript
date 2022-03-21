@@ -9,6 +9,10 @@ class Match {
     }
 }
 
+let addToCar = (type, amount) => {
+    console.log("add " + amount + " in " + type);
+}
+
 export let createTopHeaderElement = () => {
     let hrefpages = window.location.href.includes('pages') ? '../pages/' : './pages/';
     let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
@@ -193,6 +197,7 @@ let createTeamInTicket_Element = ( {name, logo}, hrefimg ) =>
 
 let createTicket_Element = ( 
     {
+        id, 
         date, 
         location, 
         homeTeam, 
@@ -216,12 +221,88 @@ let createTicket_Element = (
             ${awayTeam_Element}
         </div>
         <div class="match__tickets d-flex justify-content-center align-items-end">
-            <button type="button" class="btn btn-danger ticket" ${buyTicket}>
+            <button type="button" class="btn btn-danger ticket id${id}" ${buyTicket}>
                 Buy tickets
             </button>
         </div>
     </div>`
     return ticket;
+}
+
+let createBuyTicket_Element = (
+    {
+        id, 
+        date, 
+        homeTeam, 
+        awayTeam
+    }) => {
+
+    let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
+    let homeTeam_Element = createTeamInTicket_Element(homeTeam, hrefimg);
+    let awayTeam_Element = createTeamInTicket_Element(awayTeam, hrefimg);
+
+    let buyPopup = 
+    `<div id="add-items" class="d-flex flex-column justify-content-center align-items-center">
+    <form id="add-items__container" class="container-fluid">
+
+        <div class="row mb-3">
+            <div class="center-text">
+                <p>Tickets for match: </p>
+                <div class="match__teams card-body">
+                    ${homeTeam_Element}
+                    <p class="vs">vs</p>
+                    ${awayTeam_Element}
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="input-group mb-3">
+                <label class="input-group-text col-5" for="inputs-type-seats">Seats</label>
+                <select class="form-select col-5 col-sm-7" aria-label="Seats to buy">
+                    <option selected value="A1">Behind the goal - North</option>
+                    <option value="A2">Behind the goal - South</option>
+                    <option value="B1">Lateral - East</option>
+                    <option value="B2">Lateral - West</option>
+                </select>
+            </div>                            
+        </div>
+
+        <div class="row mb-3 justify-content-center">
+            <button type="button" class="button-count minus d-flex align-items-center justify-content-center col-1">
+                -
+            </button>
+            <input id="number-input" type="number" min="0" max="100" value="1" class="col-4">
+            <button type="button" class="button-count plus d-flex align-items-center justify-content-center outline-white col-1">
+                +
+            </button>
+        </div>
+    
+        <div class="row justify-content-evenly">
+            <button type="submit" class="btn add btn-success col-10 col-sm-8 col-md-6">Add to car</button>
+            <button type="button" class="btn cancel outline-white col-10 col-sm-3">Cancel</button>
+        </div>
+    </form>
+    </div>`
+
+    document.getElementsByClassName("content")[0].innerHTML += buyPopup;
+
+    let counts = document.getElementsByClassName("button-count");
+    for (let index = 0;  index < counts.length; index++) {
+        const button = counts[index];
+        button.addEventListener("click", (event) => {
+            let prev = parseInt(document.getElementById("number-input").value);
+            document.getElementById("number-input").value = button.classList.contains("plus") ? 
+                prev+1 : prev-1 >= 0 ? prev-1 : 0;
+        });
+    }
+
+    document.getElementById("add-items__container").addEventListener("submit", (event) => {
+        event.preventDefault();
+        addToCar(
+            document.querySelectorAll(".form-select")[0].value,
+            document.getElementById("number-input").value);
+    });
 }
 
 
@@ -245,92 +326,19 @@ export let createTicketList_Element = (games) => {
     {
         nextMatches.innerHTML = ticketList;
         let innerElement = document.getElementById("nextmatches-carousel-inner");
-        games?.forEach ( game => 
-            innerElement.innerHTML += createTicket_Element(game, hrefimg)   
-        )   
+        games?.forEach ( game => {
+            innerElement.innerHTML += createTicket_Element(game, hrefimg);   
+        })   
 
         innerElement.firstElementChild.classList.add("first-ticket");
+
+        // for some reason, if I do it in the previous forEach it doesn't work
+        games?.forEach ( game => {
+            innerElement.querySelectorAll(".btn.ticket.id"+game.id+":not([disabled])")[0]
+            ?.addEventListener("click", (event) => {
+                event.preventDefault(); 
+                createBuyTicket_Element(game);
+            });
+        })
     }
 }
-
-export let createBuyTicket_Element = (id, date, homeTeam, awayTeam) => {
-    let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
-
-    let buyPopup = 
-    `<div id="add-items" class="d-flex flex-column justify-content-center align-items-center">
-    <form class="add-items__container container-fluid">
-
-        <div class="row mb-3">
-            <div>
-                <p>Tickets for match: </p>
-                <p>${date}</p>
-                <p>${homeTeam.name} vs ${awayTeam.name}</p>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="input-group mb-3">
-                <label class="input-group-text col-5" for="inputs-type-seats">Seats</label>
-                <select class="form-select col-5 col-sm-7" aria-label="Seats to buy">
-                    <option selected value="Account issues">A1</option>
-                    <option value="Shop issues">A2</option>
-                    <option value="Contacting PR">B1</option>
-                    <option value="Contacting Media">B2</option>
-                </select>
-            </div>                            
-        </div>
-
-        <div class="row mb-3 justify-content-center">
-            <button type="button" class="button-count plus d-flex align-items-center justify-content-center col-1">
-                -
-            </button>
-            <input id="number-input" type="number" min="0" max="100" value="1" class="col-4">
-            <button type="button" class="button-count minus d-flex align-items-center justify-content-center outline-white col-1">
-                +
-            </button>
-        </div>
-    
-        <div class="row justify-content-evenly">
-            <button type="submit" class="btn add btn-success col-10 col-sm-8 col-md-6">Add to car</button>
-            <button type="button" class="btn cancel outline-white col-10 col-sm-3" onclick="closeForm()">Cancel</button>
-        </div>
-    </form>
-    </div>`
-}
-
-
-{/* <div id="add-items" class="d-flex flex-column justify-content-center align-items-center">
-<form class="add-items__container container-fluid">
-
-    <div class="row mb-3">
-        <div>Tickets for match: </div>
-    </div>
-
-    <div class="row justify-content-center">
-        <div class="input-group mb-3">
-            <label class="input-group-text col-5" for="inputs-type-seats">Seats</label>
-            <select class="form-select col-5 col-sm-7" aria-label="Seats to buy">
-                <option selected value="Account issues">A1</option>
-                <option value="Shop issues">A2</option>
-                <option value="Contacting PR">B1</option>
-                <option value="Contacting Media">B2</option>
-            </select>
-        </div>                            
-    </div>
-
-    <div class="row mb-3 justify-content-center">
-        <button type="button" class="button-count plus d-flex align-items-center justify-content-center col-1">
-            -
-        </button>
-        <input id="number-input" type="number" min="0" max="100" value="1" class="col-4">
-        <button type="button" class="button-count minus d-flex align-items-center justify-content-center outline-white col-1">
-            +
-        </button>
-    </div>
-
-    <div class="row justify-content-evenly">
-        <button type="submit" class="btn add btn-success col-10 col-sm-8 col-md-6">Add to car</button>
-        <button type="button" class="btn cancel outline-white col-10 col-sm-3" onclick="closeForm()">Cancel</button>
-    </div>
-</form>
-</div> */}

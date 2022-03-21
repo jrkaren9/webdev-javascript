@@ -157,11 +157,11 @@ let preloadLogin = async () => {
                 .addEventListener("click", changeAccountStatus);
                 
             document.getElementById("logout").addEventListener("click", event => {
-                event.preventDefault;
-                logout()
+                event.preventDefault();
+                logout();
             });
             
-            window.addEventListener('mouseup', (event) => {
+            window.addEventListener("mouseup", (event) => {
                 let button = document.getElementById('account-button');
                 let options = document.getElementById('account-options');
                 if(event.target != button && event.target.parentNode != button && options){
@@ -241,3 +241,4 @@ let completeGamesComponent = async () => {
 }
 
 completeGamesComponent();
+
