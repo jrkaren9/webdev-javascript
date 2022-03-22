@@ -1,3 +1,5 @@
+let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
+
 class Match {
     constructor(date, location, homeTeam, awayTeam, capacity, availableSeats) {
         this.date = date;
@@ -6,6 +8,104 @@ class Match {
         this.awayTeam = awayTeam;
         this.capacity = capacity;
         this.availableSeats = availableSeats;
+    }
+}
+
+class UserCart {
+    constructor(orders) {
+        this.orders = orders;
+    }
+
+    async addOrder(userId, gameId, type, amount) {
+        // see if the order already exists
+        let order = this.orders.find(order => order.gameId === gameId);
+        let ticketsOfGame =  order ? new OrderForGame(order) : null;
+        
+        let resp = ticketsOfGame ?
+            // UPDATE the order, adding the tickets
+            await ticketsOfGame.addTickets(type, amount) :
+            // CREATE the order from zero
+            await this.newOrder(userId, gameId, type, amount);
+
+        if(resp.ok) {
+            if(amount > 0) {
+                Toastify({
+                    text: "You added " + amount + 
+                        " ticket" + (amount > 1 ? "s" : "") 
+                        + " in section " + type + " to your cart",
+                    selector: "content-index",
+                    duration: 4000,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    className: "user-created",
+                    callback: function(){} // Callback after click
+                }).showToast();
+            }
+
+            console.log(await resp.json());
+        }
+    }
+
+    findOrder(orders, gameId) {
+        let order = orders.find(order => order.gameId === gameId);
+        return order ? new OrderForGame(order) : null
+    }
+
+    async newOrder(userId, gameId, type, amount) {
+        let tickets = [new Ticket(type, amount)];
+        let order = new OrderForGame( {id: null, userId, gameId, tickets} );
+
+        let orders =
+            await fetch(baseurl + 'users/' + userId + '/tickets', {
+                method: 'POST',
+                body: JSON.stringify(order),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            });        
+
+        return orders;
+    }
+}
+
+// orders are done by game and pay status
+// this destructuring was a god sent
+// https://stackoverflow.com/questions/50715033/javascript-constructor-with-optional-parameters
+class OrderForGame {
+    constructor( {id = null, userId, gameId, tickets}) {
+        this.id = id;
+        this.userId = userId;
+        this.gameId = gameId;
+        this.paid = false;
+        this.tickets = tickets;
+    }
+
+    async addTickets(type, amount) {
+        let ticket = this.tickets.find(ticket => ticket.type === type) 
+
+        ticket ? 
+            // if the the user already added tickets of this type, just add more
+            ticket.amount = parseInt(ticket.amount) + parseInt(amount) : 
+            // if not, create a new "order" for this game and order
+            this.tickets.push(new Ticket(type, amount));
+
+        let tickets = await fetch(baseurl + 'users/' + this.userId + '/tickets/' + this.id, {
+            method: 'PUT',
+            body: JSON.stringify(this),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+
+        return tickets;
+    }
+}
+
+class Ticket {
+    constructor(type, amount) {
+        this.type = type;
+        this.amount = parseInt(amount);
     }
 }
 
@@ -333,18 +433,16 @@ export let createLoginElement = () => {
 ///////////////////////////////////////////////////////////// Elements for Tickets ///////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-let addToCar = (type, amount) => {
-    if(amount > 0) {
-        Toastify({
-            text: "You added " +  + amount + " in section " + type + " for the match x",
-            selector: "content-index",
-            duration: 4000,
-            gravity: "top", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: false, // Prevents dismissing of toast on hover
-            className: "user-created",
-            callback: function(){} // Callback after click
-        }).showToast();
+let addToCar = async (gameId, type, amount) => {
+    
+    let userId = localStorage.getItem("userId");
+    
+    try {
+        let userCart = await fetch(baseurl + 'users/' + userId + '/tickets');
+        let userCartData = new UserCart(await userCart.json());
+        userCartData.addOrder(userId, gameId, type, amount);
+    } catch(error) {
+        console.error(error);
     }
 }
 
@@ -391,7 +489,7 @@ let createTicket_Element = (
 
 let createBuyTicket_Element = (
     {
-        id, 
+        id: gameId, 
         date, 
         homeTeam, 
         awayTeam
@@ -421,10 +519,10 @@ let createBuyTicket_Element = (
             <div class="input-group mb-3">
                 <label class="input-group-text col-5" for="inputs-type-seats">Seats</label>
                 <select class="form-select col-5 col-sm-7" aria-label="Seats to buy">
-                    <option selected value="A1">Behind the goal - North</option>
-                    <option value="A2">Behind the goal - South</option>
-                    <option value="B1">Lateral - East</option>
-                    <option value="B2">Lateral - West</option>
+                    <option selected value="A1">A1 - Behind the goal (North)</option>
+                    <option value="A2">A2 - Behind the goal (South)</option>
+                    <option value="B1">B1 - Lateral (East)</option>
+                    <option value="B2">B2 - Lateral (West)</option>
                 </select>
             </div>                            
         </div>
@@ -467,6 +565,7 @@ let createBuyTicket_Element = (
     document.getElementById("add-items__container").addEventListener("submit", (event) => {
         event.preventDefault();
         addToCar(
+            gameId,
             document.querySelectorAll(".form-select")[0].value,
             document.getElementById("number-input").value
         );

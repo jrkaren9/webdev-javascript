@@ -229,7 +229,7 @@ preloadLogin();
 let completeGamesComponent = async () => {
     if (document.getElementById('nextmatches-carousel')) {
         let games = await getGames();
-        createTicketListElement(games);
+        await createTicketListElement(games);
     }
 }
 
