@@ -836,4 +836,25 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.order {
+  border-radius: 10px;
+  margin: 2rem 0;
+}
+.order__title {
+  text-align: center;
+  background-color: #0A1E2C;
+  color: #FFF;
+  padding: 0.5rem;
+  border-radius: 10px 10px 0 0;
+}
+.order__info {
+  background-color: #E5E5E5;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0 0 10px 10px;
+}
+.order__tickets {
+  padding: 1rem;
+}
+
 /*# sourceMappingURL=style.css.map */

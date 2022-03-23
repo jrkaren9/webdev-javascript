@@ -114,3 +114,26 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.order {
+    border-radius: 10px;
+    margin: 2rem 0;
+
+    &__title {
+        text-align: center;
+        background-color: $dark-blue;
+        color: #FFF;
+        padding: 0.5rem;
+        border-radius: 10px 10px 0 0;
+    }
+
+    &__info {
+        background-color: $almost-white;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border-radius: 0 0 10px 10px;
+    }
+
+    &__tickets {
+        padding: 1rem;
+    }
+}

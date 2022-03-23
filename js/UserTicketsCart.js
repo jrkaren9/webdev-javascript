@@ -43,21 +43,26 @@ export default class UserTicketsCart {
 
         console.log(cart);
         if(cartContainer) {
-            let cartElement = ``
+            let cartElement = document.createElement("div");
+            cartElement.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
+            let cartElement_temp = `<div class="col-8 order container-fluid">`
     
             for (let index = 0; index < cart.orders.length; index++) {
                 console.log(cart.orders[index])
                 const order = cart.orders[index];
-                cartElement +=         
-                `<div>
-                    ${order.gameId}
+                cartElement_temp +=         
+                `<div class="order__title">
+                    Game ID: ${order.gameId}
+                </div>
+                <div class="order__info row justify-content-center">    
                     ${cart.createTicketsFromOrderElement(order.tickets)}
                 </div>`            
     
                 cart.createTicketsFromOrderElement(order.tickets);
             }
     
-            cartContainer.innerHTML = cartElement
+            cartElement.innerHTML = cartElement_temp + "</div>";
+            cartContainer.appendChild(cartElement)
         }
     }
 
@@ -69,9 +74,9 @@ export default class UserTicketsCart {
             console.log(ticket);
 
             ticketsElement += 
-            `<div>
-                ${ticket.type}
-                ${ticket.amount}
+            `<div class="order__tickets col-6 col-sm-4">
+                <p>Seats: ${ticket.type} </p>
+                <p>Amount: ${ticket.amount} </p>
             </div>`
         }
 
