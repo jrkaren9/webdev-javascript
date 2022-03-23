@@ -80,7 +80,4 @@ let addEvents_SignIn = () => {
 
 addEvents_SignIn();
 
-let button = document.getElementsByClassName("submit-button");
-if(button.length === 1) {
-    button[0].addEventListener("click", (event) => signin(event)) 
-}
+document.getElementById("form-signin").addEventListener("submit", (event) => signin(event));

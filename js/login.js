@@ -92,5 +92,5 @@ let fillLogin = async () => {
     }
 }
 
-document.getElementById("form-login")?.addEventListener("submit", (event) => login(event)) 
+document.getElementById("form-login")?.addEventListener("submit", (event) => login(event));
 fillLogin();
