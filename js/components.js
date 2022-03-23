@@ -1,114 +1,4 @@
-let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
-
-class Match {
-    constructor(date, location, homeTeam, awayTeam, capacity, availableSeats) {
-        this.date = date;
-        this.location = location;
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
-        this.capacity = capacity;
-        this.availableSeats = availableSeats;
-    }
-}
-
-class UserCart {
-    constructor(orders) {
-        this.orders = orders;
-    }
-
-    async addOrder(userId, gameId, type, amount) {
-        // see if the order already exists
-        let order = this.orders.find(order => order.gameId === gameId);
-        let ticketsOfGame =  order ? new OrderForGame(order) : null;
-        
-        let resp = ticketsOfGame ?
-            // UPDATE the order, adding the tickets
-            await ticketsOfGame.addTickets(type, amount) :
-            // CREATE the order from zero
-            await this.newOrder(userId, gameId, type, amount);
-
-        if(resp.ok) {
-            if(amount > 0) {
-                Toastify({
-                    text: "You added " + amount + 
-                        " ticket" + (amount > 1 ? "s" : "") 
-                        + " in section " + type + " to your cart",
-                    selector: "content-index",
-                    duration: 4000,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: false, // Prevents dismissing of toast on hover
-                    className: "user-created",
-                    callback: function(){} // Callback after click
-                }).showToast();
-            }
-
-            console.log(await resp.json());
-        }
-    }
-
-    findOrder(orders, gameId) {
-        let order = orders.find(order => order.gameId === gameId);
-        return order ? new OrderForGame(order) : null
-    }
-
-    async newOrder(userId, gameId, type, amount) {
-        let tickets = [new Ticket(type, amount)];
-        let order = new OrderForGame( {id: null, userId, gameId, tickets} );
-
-        let orders =
-            await fetch(baseurl + 'users/' + userId + '/tickets', {
-                method: 'POST',
-                body: JSON.stringify(order),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            });        
-
-        return orders;
-    }
-}
-
-// orders are done by game and pay status
-// this destructuring was a god sent
-// https://stackoverflow.com/questions/50715033/javascript-constructor-with-optional-parameters
-class OrderForGame {
-    constructor( {id = null, userId, gameId, tickets}) {
-        this.id = id;
-        this.userId = userId;
-        this.gameId = gameId;
-        this.paid = false;
-        this.tickets = tickets;
-    }
-
-    async addTickets(type, amount) {
-        let ticket = this.tickets.find(ticket => ticket.type === type) 
-
-        ticket ? 
-            // if the the user already added tickets of this type, just add more
-            ticket.amount = parseInt(ticket.amount) + parseInt(amount) : 
-            // if not, create a new "order" for this game and order
-            this.tickets.push(new Ticket(type, amount));
-
-        let tickets = await fetch(baseurl + 'users/' + this.userId + '/tickets/' + this.id, {
-            method: 'PUT',
-            body: JSON.stringify(this),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        });
-
-        return tickets;
-    }
-}
-
-class Ticket {
-    constructor(type, amount) {
-        this.type = type;
-        this.amount = parseInt(amount);
-    }
-}
-
+import UserTicketsCart from './UserTicketsCart.js';
 let hrefpages = window.location.href.includes('pages') ? '../pages/' : './pages/';
 let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
 
@@ -396,7 +286,7 @@ export let createAccountElement = (username, firstname, lastname) => {
                 <li>
                     <a>My account</a></li>
                 <li>
-                    <a>My <span>tickets</span></a>
+                    <a href="${hrefpages}cart.html">My <span>tickets</span></a>
                 </li>
                 <li>
                     <a>My <span>cart</span></a>
@@ -436,13 +326,12 @@ export let createLoginElement = () => {
 let addToCar = async (gameId, type, amount) => {
     
     let userId = localStorage.getItem("userId");
-    
     try {
-        let userCart = await fetch(baseurl + 'users/' + userId + '/tickets');
-        let userCartData = new UserCart(await userCart.json());
-        userCartData.addOrder(userId, gameId, type, amount);
+        let userCartData = new UserTicketsCart();
+        await userCartData.loadUserOrders();
+        userCartData.addOrder(gameId, type, amount);
     } catch(error) {
-        console.error(error);
+        // Should redirect to an error page
     }
 }
 
@@ -545,6 +434,7 @@ let createBuyTicket_Element = (
 
     div.innerHTML = buyPopup;
     document.getElementsByClassName("content")[0].appendChild(div);
+    let userId = localStorage.getItem("userId");
 
     let counts = document.getElementsByClassName("button-count");
     for (let index = 0;  index < counts.length; index++) {
@@ -556,7 +446,7 @@ let createBuyTicket_Element = (
             amount.value = button.classList.contains("plus") ? 
                 prev+1 : prev-1 >= 0 ? prev-1 : 0;
 
-            amount.value > 0 ? 
+            amount.value > 0 && userId ? 
                 document.querySelectorAll("button.btn.add")[0].removeAttribute("disabled")
                 : document.querySelectorAll("button.btn.add")[0].setAttribute("disabled", "");
         });
@@ -564,13 +454,13 @@ let createBuyTicket_Element = (
 
     document.getElementById("add-items__container").addEventListener("submit", (event) => {
         event.preventDefault();
-        addToCar(
-            gameId,
-            document.querySelectorAll(".form-select")[0].value,
-            document.getElementById("number-input").value
-        );
+            addToCar(
+                gameId,
+                document.querySelectorAll(".form-select")[0].value,
+                document.getElementById("number-input").value
+            )
 
-        setTimeout(() => {
+            setTimeout(() => {
             document.querySelectorAll("button.btn.add")[0].blur();
         }, 300); 
     });
@@ -578,7 +468,22 @@ let createBuyTicket_Element = (
     document.getElementById("cancel-buy").addEventListener("click", (event) => {
         event.preventDefault();
         document.getElementById("add-items").remove();
-    })
+    });
+
+    if(!userId) {
+        document.querySelectorAll("button.btn.add")[0].setAttribute("disabled", "");
+        setTimeout(() => {
+            Toastify({
+                text: "First, you need to login. Click here to do it",
+                duration: -1,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                className: "user-created",
+                onClick: function () { window.location.replace(`${hrefpages}login.html`) }
+            }).showToast()
+         }, 500);
+    }
 }
 
 export let createTicketListElement = (games) => {
@@ -631,3 +536,4 @@ export let createTicketListElement = (games) => {
         }    
     }
 }
+

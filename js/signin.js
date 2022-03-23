@@ -1,7 +1,10 @@
-import * as main from './main.js'
+import Utils from './Utils.js'
+
+let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
+let userIdInLocalStorage = "userId";
 
 let saveUser = async (firstname, lastname, email, phone, username, password) => {
-    let resp = await fetch(main.baseurl + "users", {
+    let resp = await fetch(baseurl + "users", {
         method: 'POST',
         body: JSON.stringify({
             firstname: firstname,
@@ -30,7 +33,7 @@ let signin = async (event) => {
 
     for (let input = 0; input < accountInfo.length; input++) {
         const element = accountInfo[input];
-        missingRequired += await main.checkExistanceBase(element, element.getAttribute("placeholder"));
+        missingRequired += await Utils.checkExistanceBase(element, element.getAttribute("placeholder"));
     }
 
     firstname = document.getElementById("firstNameInput").value;
@@ -57,7 +60,7 @@ let signin = async (event) => {
             }).showToast();
             
             localStorage.setItem("SessionOn", "true");
-            localStorage.setItem(main.userIdInLocalStorage, UserCreated);
+            localStorage.setItem(userIdInLocalStorage, UserCreated);
             document.getElementById("rememberUser").checked ? 
                 localStorage.setItem("rememberUser", "true") :
                 localStorage.setItem("rememberUser", "false");
@@ -68,11 +71,11 @@ let signin = async (event) => {
 }
 
 let addEvents_SignIn = () => {
-    document.getElementById("firstNameInput").onblur = (event) => main.checkExistance(event);
-    document.getElementById("lastNameInput").onblur = (event) => main.checkExistance(event);
-    document.getElementById("passwordInput").onblur = (event) => main.checkExistance(event, "Password");
-    document.getElementById("usernameInput").onblur = (event) => main.checkExistance(event, "Username");
-    document.getElementById("emailInput").onblur = (event) => main.checkExistance(event, "Email");
+    document.getElementById("firstNameInput").onblur = (event) => Utils.checkExistance(event);
+    document.getElementById("lastNameInput").onblur = (event) => Utils.checkExistance(event);
+    document.getElementById("passwordInput").onblur = (event) => Utils.checkExistance(event, "Password");
+    document.getElementById("usernameInput").onblur = (event) => Utils.checkExistance(event, "Username");
+    document.getElementById("emailInput").onblur = (event) => Utils.checkExistance(event, "Email");
 }
 
 addEvents_SignIn();

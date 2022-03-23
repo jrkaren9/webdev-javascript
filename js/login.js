@@ -1,4 +1,20 @@
-import * as main from './main.js'
+import User from './User.js';
+import Utils from './Utils.js'
+
+let baseurl = "https://621c38ff768a4e1020a4acbe.mockapi.io/spirit-api/v1/"
+let userIdInLocalStorage = "userId";
+let rememberUserInLocalStorage = "rememberUser";
+
+let checkPassword = async (username, password) => {
+    try {
+        let users = await fetch(baseurl + 'users');
+        let userData = await users.json();
+    
+        return userData.items?.find(user => user.username === username && user.password === password);
+    } catch(error) {
+        console.error(error);
+    }
+}
 
 /**
  * Event triggered when submitting the login info
@@ -13,7 +29,7 @@ let login = async (event) => {
         username = document.getElementById("usernameLogin").value,
         password = document.getElementById("passwordLogin").value;
 
-    let user = await main.checkPassword(username, password) 
+    let user = await checkPassword(username, password) 
         user ? successfulLogin(user) : unsuccesfulLogin(usernameElement);
 }
 
@@ -25,7 +41,7 @@ let login = async (event) => {
 let unsuccesfulLogin = (element) => {
     let help = element.getAttribute("aria-describedby");
     let helpMessage = document.getElementById(help);
-    main.changeRequiredStatus(element, helpMessage, "invalid-user");
+    Utils.changeRequiredStatus(element, helpMessage, "invalid-user");
 }
 
 /**
@@ -49,8 +65,8 @@ let successfulLogin = (user) => {
     }).showToast();
 
     localStorage.setItem("SessionOn", "true");
-    localStorage.setItem(main.rememberUserInLocalStorage, document.getElementById("rememberUser").checked);
-    localStorage.setItem(main.userIdInLocalStorage, id);
+    localStorage.setItem(rememberUserInLocalStorage, document.getElementById("rememberUser").checked);
+    localStorage.setItem(userIdInLocalStorage, id);
 
     setTimeout(() => window.location.replace("../index.html"), 1500);
 }
@@ -59,14 +75,14 @@ let successfulLogin = (user) => {
  * If the user selected to be remembered, the fields are filled automatically
  */
 let fillLogin = async () => {
-    let rememberUser = JSON.parse(localStorage.getItem(main.rememberUserInLocalStorage));
-    let userId = localStorage.getItem(main.userIdInLocalStorage);
+    let rememberUser = JSON.parse(localStorage.getItem(rememberUserInLocalStorage));
+    let userId = localStorage.getItem(userIdInLocalStorage);
     
     if(rememberUser == true && userId)
     {
         try {
             
-            let {username, password} = await main.finduserDataById(userId);
+            let {username, password} = await User.finduserDataById(userId);
             document.getElementById("usernameLogin").value = username, document.getElementById("passwordLogin").value = password;
             document.getElementById("rememberUser").checked = rememberUser;
 
@@ -76,7 +92,5 @@ let fillLogin = async () => {
     }
 }
 
-
 document.getElementById("form-login")?.addEventListener("submit", (event) => login(event)) 
-
 fillLogin();
