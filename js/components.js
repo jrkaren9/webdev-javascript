@@ -57,7 +57,7 @@ export let createTopHeaderElement = () => {
                 <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href=${hrefhome}index.html>Home</a>
+                        <a class="nav-link" aria-current="page" href="${hrefhome}index.html">Home</a>
                     </li>
 
                     <li class="nav-item">
