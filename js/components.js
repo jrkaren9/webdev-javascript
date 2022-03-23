@@ -1,7 +1,7 @@
 import UserTicketsCart from './UserTicketsCart.js';
 let hrefpages = window.location.href.includes('pages') ? '../pages/' : './pages/';
 let hrefimg = window.location.href.includes('pages') ? '../imgs/' : './imgs/';
-let hrefhome = window.location.href.includes('pages') ? '../' : './';
+let hrefhome = window.location.href.includes('pages') ? '../' : '';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////// Elements for TopHeader /////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ export let createTopHeaderElement = () => {
                 <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href=${hrefhome}index.html">Home</a>
+                        <a class="nav-link" aria-current="page" href=${hrefhome}index.html>Home</a>
                     </li>
 
                     <li class="nav-item">

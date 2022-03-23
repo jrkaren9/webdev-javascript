@@ -1,4 +1,6 @@
 
+let hrefhome = window.location.href.includes('pages') ? '../' : './';
+
 export default class Games {
     constructor(date, location, homeTeam, awayTeam, capacity, availableSeats) {
         this.date = date;
@@ -15,7 +17,7 @@ export default class Games {
     * @returns gamesData 
     */
     static getGames = async () => {
-       let games = await fetch('../gamesDB.json');
+       let games = await fetch(`${hrefhome}gamesDB.json`);
        let gamesData = await games.json();
    
        return gamesData;
